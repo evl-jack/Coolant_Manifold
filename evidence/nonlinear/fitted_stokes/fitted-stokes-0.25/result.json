@@ -1,0 +1,68 @@
+{
+  "case": "fitted-stokes",
+  "mesh_target_mm": 0.25,
+  "geometry_sha256": "97aac05a9bb1f533ba86ebf2891fc93870b0bc8a79bf29fa16c067bf5f88d250",
+  "design_fields_sha256": null,
+  "physical_fluid_area_mm2": 86.22814520111137,
+  "port_connected_area_mm2": 86.22814520111137,
+  "closed_pocket_area_mm2": 0.0,
+  "analysis_area_mm2": 86.22814520111135,
+  "triangles": 4312,
+  "dofs": 20057,
+  "free_dofs": 19093,
+  "mesh_sizes": {
+    "minimum_edge_mm": 0.0010629807691708351,
+    "maximum_edge_mm": 0.3754209729550912,
+    "junction_maximum_edge_mm": 0.35197214576220814,
+    "collar_maximum_edge_mm": 0.3208217786772728
+  },
+  "inlet_flow_m2_per_s": 5.019034261671008e-05,
+  "side_fraction": 0.019476236976868712,
+  "main_fraction": 0.9805237630231315,
+  "mechanical_power_W_per_m": 9.113993893535394e-06,
+  "hydraulic_resistance_pa_s_per_m2": 3617.998750944769,
+  "relative_mass_imbalance": 2.0122792321330962e-16,
+  "nonlinear_residual": 7.296420412306048e-14,
+  "final_reynolds_residual_history": [
+    0.0473076692557438,
+    0.0009108311883198206,
+    3.8688741107323343e-07,
+    7.296420412306048e-14
+  ],
+  "state_passed": true,
+  "energy": {
+    "units": "W/m depth",
+    "ports_inlet_main_side_pressure_kinetic_viscous": [
+      [
+        8.672308496721062e-06,
+        6.0849047401876015e-06,
+        -6.295165196626623e-13
+      ],
+      [
+        7.382814282549247e-08,
+        -5.717171625838453e-06,
+        -6.371730668180936e-08
+      ],
+      [
+        8.266054191699747e-10,
+        -7.024657794796874e-10,
+        -8.241178236474778e-10
+      ]
+    ],
+    "port_power": 9.113993893535394e-06,
+    "viscous_work": -6.45420540219765e-08,
+    "viscous_dissipation": 9.039328045512227e-06,
+    "brinkman_dissipation": 0.0,
+    "weighted_divergence": -1.0730727966671137e-11,
+    "raw_closure": 1.0123794001189908e-08,
+    "corrected_closure": 1.011306327322294e-08,
+    "velocity_weighted_weak_reaction": 8.672308127670296e-06,
+    "weak_form_closure": 2.286988957586611e-19
+  },
+  "solid_transport": null,
+  "minimum_penetration_length_mm": null,
+  "nominal_steps_per_minimum_penetration_length": null,
+  "elapsed_seconds": 7.7571893999993335,
+  "hostname": "Jackslaptop2",
+  "slurm_job_id": null
+}

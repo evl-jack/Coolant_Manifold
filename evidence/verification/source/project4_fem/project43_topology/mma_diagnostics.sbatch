@@ -1,0 +1,21 @@
+#!/bin/bash -l
+#SBATCH --job-name=p43-topology-mma-diag
+#SBATCH --partition=htc
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=2G
+#SBATCH --time=00:10:00
+#SBATCH --output=p43-topology-mma-diag-%j.log
+
+set -euo pipefail
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+study_root="${P43_STUDY_ROOT:-/scratch/$USER/p43-topology-study-20261125}"
+dependency_dir="${P43_DEPS:-$study_root/gate2-source-2395294/dependencies}"
+export PYTHONPATH="$dependency_dir${PYTHONPATH:+:$PYTHONPATH}"
+python_path="${P43_PYTHON:-$HOME/.conda/envs/brinkman-rans/bin/python}"
+job_source="$study_root/mma-source-$SLURM_JOB_ID"
+mkdir "$job_source"
+tar -xzf "$study_root/optimizer-replay-input/p43-topology-gate2-v4.tar.gz" -C "$job_source"
+cp "$SLURM_SUBMIT_DIR/mma_diagnostics.py" "$job_source/project4_fem/project43_topology/"
+cd "$job_source"
+"$python_path" -B -u -m project4_fem.project43_topology.mma_diagnostics \
+  "$study_root/mma-diagnostics-$SLURM_JOB_ID.json" --max-evaluations 300 --verbosity 1

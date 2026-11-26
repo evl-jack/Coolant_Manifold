@@ -1,0 +1,62 @@
+{
+  "completed": true,
+  "results": {
+    "sol_job_id": null,
+    "environment": {
+      "python": "3.12.14",
+      "host": "Jackslaptop2",
+      "packages": {
+        "numpy": "2.5.5",
+        "scipy": "1.18.1",
+        "nlopt": "2.11.0",
+        "shapely": "2.2.0",
+        "triangle": null
+      }
+    },
+    "stages": [
+      {
+        "q": 0.1,
+        "beta": 0.0,
+        "alpha_max": 100000.0
+      },
+      {
+        "q": 0.1,
+        "beta": 2.0,
+        "alpha_max": 100000.0
+      },
+      {
+        "q": 0.1,
+        "beta": 8.0,
+        "alpha_max": 100000.0
+      }
+    ],
+    "unique_evaluation_limit": 100,
+    "reynolds": 50.0,
+    "density_spacing_mm": 0.25,
+    "fem_spacing_mm": 0.25,
+    "filter_radius_mm": 0.5,
+    "reconstruction_threshold": 0.5,
+    "design_rectangle_mm": [
+      8.0,
+      4.0,
+      12.0,
+      6.0
+    ],
+    "main_pipe_mm": [
+      0.0,
+      0.0,
+      20.0,
+      4.0
+    ],
+    "outlet_collar_mm": [
+      9.5,
+      6.0,
+      10.5,
+      7.0
+    ],
+    "editable_density_variables": 128,
+    "triangles": 2848,
+    "power_reference": "Unchanged immersed original at the same continuation stage",
+    "side_constraint": "Side fraction >= unchanged immersed original at the same continuation stage"
+  }
+}

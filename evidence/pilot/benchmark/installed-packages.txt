@@ -1,0 +1,20 @@
+colorama==0.4.6
+contourpy==1.4.0
+cycler==0.12.1
+fonttools==4.68.0
+gmsh==4.14.1
+iniconfig==2.3.1
+kiwisolver==1.5.1
+matplotlib==3.11.2
+nlopt @ file:///C:/Users/jackf/Downloads/nlopt-2.11.0-cp312-cp312-win_amd64.whl#sha256=ebccfc7161ecbf97a250c93c99e2ec0fb6cd2a02b87c063386f07ff420ec435e
+numpy==2.5.5
+packaging==26.3
+pillow==13.0.0
+pluggy==1.7.0
+Pygments==2.21.0
+pyparsing==3.3.3
+pytest==9.2.0
+python-dateutil==4.0.0
+scipy==1.18.1
+shapely @ file:///C:/Users/jackf/Downloads/shapely-2.2.0-cp312-cp312-win_amd64.whl#sha256=90895df6542ae039fc6557dec6194e3509e883fbd6f5788e3c3e7a38fe46b257
+tzdata==2026.6

@@ -1,0 +1,744 @@
+{
+  "mesh_levels_mm": [
+    0.25,
+    0.125,
+    0.0625
+  ],
+  "physics": "Fitted-wall Navier\u2013Stokes, Re = 50, common three-port conditions and P2/P1 FEM",
+  "archived_fitted_settings": "Reused the original and raw Navier\u2013Stokes contours by exact geometry-file SHA-256. New cases use the same fitted mesh constructor, nonlinear continuation, boundary data, power, and residual checks via the archived mesh-audit solver path.",
+  "series": {
+    "original": [
+      {
+        "case": "fitted-original",
+        "mesh_target_mm": 0.25,
+        "geometry_sha256": "2fb7d35d7e5a013e5d99b7ea42ef4adf18d2b751bb86c2c9f8955175ae3add4d",
+        "design_fields_sha256": null,
+        "physical_fluid_area_mm2": 83.0,
+        "analysis_area_mm2": 83.00000000000001,
+        "triangles": 4132,
+        "dofs": 19137,
+        "free_dofs": 18349,
+        "mesh_sizes": {
+          "minimum_edge_mm": 0.1551597164943221,
+          "maximum_edge_mm": 0.3759596209809625,
+          "junction_maximum_edge_mm": 0.3350633420280144,
+          "collar_maximum_edge_mm": 0.30137535806751453
+        },
+        "inlet_flow_m2_per_s": 5.019034261671008e-05,
+        "side_fraction": 0.040387843761315906,
+        "main_fraction": 0.9596121562386846,
+        "mechanical_power_W_per_m": 9.282893870769297e-06,
+        "hydraulic_resistance_pa_s_per_m2": 3685.047282445356,
+        "relative_mass_imbalance": 4.718447854656915e-16,
+        "nonlinear_residual": 6.2282535899516045e-15,
+        "final_reynolds_residual_history": [
+          0.047363876324703076,
+          0.00047626350709652904,
+          5.005405572661159e-08,
+          6.2282535899516045e-15
+        ],
+        "state_passed": true,
+        "energy": {
+          "units": "W/m depth",
+          "ports_inlet_main_side_pressure_kinetic_viscous": [
+            [
+              8.493317809283322e-06,
+              6.084904740187602e-06,
+              -5.565872308587063e-14
+            ],
+            [
+              7.205735099973711e-08,
+              -5.364832298231845e-06,
+              -6.301770363651425e-08
+            ],
+            [
+              3.752378894115197e-09,
+              -6.306110363635873e-09,
+              -3.832393916217461e-09
+            ]
+          ],
+          "port_power": 9.282893870769297e-06,
+          "viscous_work": -6.685015321145479e-08,
+          "viscous_dissipation": 9.207206535362831e-06,
+          "brinkman_dissipation": 0.0,
+          "weighted_divergence": 1.2280207767909391e-10,
+          "raw_closure": 8.837182195011774e-09,
+          "corrected_closure": 8.959984272690336e-09,
+          "velocity_weighted_weak_reaction": 8.493317401692773e-06,
+          "weak_form_closure": 2.574980159653073e-19
+        },
+        "solid_transport": null,
+        "minimum_penetration_length_mm": null,
+        "nominal_steps_per_minimum_penetration_length": null,
+        "elapsed_seconds": 5.05549992993474,
+        "hostname": "sc017",
+        "slurm_job_id": "2408525"
+      },
+      {
+        "case": "fitted-original",
+        "mesh_target_mm": 0.125,
+        "geometry_sha256": "2fb7d35d7e5a013e5d99b7ea42ef4adf18d2b751bb86c2c9f8955175ae3add4d",
+        "design_fields_sha256": null,
+        "physical_fluid_area_mm2": 83.0,
+        "analysis_area_mm2": 83.00000000000003,
+        "triangles": 16466,
+        "dofs": 75180,
+        "free_dofs": 73608,
+        "mesh_sizes": {
+          "minimum_edge_mm": 0.0776073782750868,
+          "maximum_edge_mm": 0.1866354130070883,
+          "junction_maximum_edge_mm": 0.17636836118945692,
+          "collar_maximum_edge_mm": 0.16869872878076855
+        },
+        "inlet_flow_m2_per_s": 5.019034261671008e-05,
+        "side_fraction": 0.04027303831542575,
+        "main_fraction": 0.9597269616845752,
+        "mechanical_power_W_per_m": 9.277632210319218e-06,
+        "hydraulic_resistance_pa_s_per_m2": 3682.958551515902,
+        "relative_mass_imbalance": 9.159339953157541e-16,
+        "nonlinear_residual": 9.356602703386517e-15,
+        "final_reynolds_residual_history": [
+          0.01580883468265886,
+          0.00012869995255238714,
+          1.360614800341442e-08,
+          9.356602703386517e-15
+        ],
+        "state_passed": true,
+        "energy": {
+          "units": "W/m depth",
+          "ports_inlet_main_side_pressure_kinetic_viscous": [
+            [
+              8.48996373330064e-06,
+              6.084904740187602e-06,
+              -3.545806060032423e-15
+            ],
+            [
+              6.732599024328703e-08,
+              -5.362220182506204e-06,
+              -6.404997222286488e-08
+            ],
+            [
+              3.870659915236635e-09,
+              -6.212730821347777e-09,
+              -3.873085505362622e-09
+            ]
+          ],
+          "port_power": 9.277632210319214e-06,
+          "viscous_work": -6.792306127403356e-08,
+          "viscous_dissipation": 9.206437787774827e-06,
+          "brinkman_dissipation": 0.0,
+          "weighted_divergence": 2.2604905417810903e-12,
+          "raw_closure": 3.2713612703528155e-09,
+          "corrected_closure": 3.2736217608943106e-09,
+          "velocity_weighted_weak_reaction": 8.48996370042339e-06,
+          "weak_form_closure": 8.453388813597917e-19
+        },
+        "solid_transport": null,
+        "minimum_penetration_length_mm": null,
+        "nominal_steps_per_minimum_penetration_length": null,
+        "elapsed_seconds": 30.021544602233917,
+        "hostname": "sc084",
+        "slurm_job_id": "2408538"
+      },
+      {
+        "case": "fitted-original",
+        "mesh_target_mm": 0.0625,
+        "geometry_sha256": "2fb7d35d7e5a013e5d99b7ea42ef4adf18d2b751bb86c2c9f8955175ae3add4d",
+        "design_fields_sha256": null,
+        "physical_fluid_area_mm2": 83.0,
+        "analysis_area_mm2": 82.99999999999997,
+        "triangles": 65970,
+        "dofs": 299028,
+        "free_dofs": 295888,
+        "mesh_sizes": {
+          "minimum_edge_mm": 0.03878500255240356,
+          "maximum_edge_mm": 0.0977357681697798,
+          "junction_maximum_edge_mm": 0.09386162910946072,
+          "collar_maximum_edge_mm": 0.08701325349751936
+        },
+        "inlet_flow_m2_per_s": 5.019034261671008e-05,
+        "side_fraction": 0.0402420575633167,
+        "main_fraction": 0.9597579424366831,
+        "mechanical_power_W_per_m": 9.275934023080396e-06,
+        "hydraulic_resistance_pa_s_per_m2": 3682.2844190355977,
+        "relative_mass_imbalance": 1.942890293094024e-16,
+        "nonlinear_residual": 8.119523683536702e-15,
+        "final_reynolds_residual_history": [
+          0.005119545592348907,
+          3.5279143957392053e-05,
+          3.5131185885731164e-09,
+          8.119523683536702e-15
+        ],
+        "state_passed": true,
+        "energy": {
+          "units": "W/m depth",
+          "ports_inlet_main_side_pressure_kinetic_viscous": [
+            [
+              8.48820898717682e-06,
+              6.084904740187604e-06,
+              1.4558356822874505e-15
+            ],
+            [
+              6.574503659652382e-08,
+              -5.360855371108901e-06,
+              -6.486621856629068e-08
+            ],
+            [
+              4.1119429430017525e-09,
+              -6.18131271464953e-09,
+              -4.1482057272803574e-09
+            ]
+          ],
+          "port_power": 9.2759340230804e-06,
+          "viscous_work": -6.901442283773537e-08,
+          "viscous_dissipation": 9.206077384925251e-06,
+          "brinkman_dissipation": 0.0,
+          "weighted_divergence": 3.519742455676143e-13,
+          "raw_closure": 8.422153174133027e-10,
+          "corrected_closure": 8.425672916596958e-10,
+          "velocity_weighted_weak_reaction": 8.488208976583548e-06,
+          "weak_form_closure": 3.4033783820677788e-18
+        },
+        "solid_transport": null,
+        "minimum_penetration_length_mm": null,
+        "nominal_steps_per_minimum_penetration_length": null,
+        "elapsed_seconds": 222.03683741996065,
+        "hostname": "sc015",
+        "slurm_job_id": "2408550"
+      }
+    ],
+    "navier_stokes": [
+      {
+        "case": "fitted-raw",
+        "mesh_target_mm": 0.25,
+        "geometry_sha256": "e7217405722c0a229260745cab64dc15eb7dd034c620381ce8bcc0f16ecf50a1",
+        "design_fields_sha256": null,
+        "physical_fluid_area_mm2": 85.50697489140008,
+        "analysis_area_mm2": 85.50697489140008,
+        "triangles": 4338,
+        "dofs": 20154,
+        "free_dofs": 19222,
+        "mesh_sizes": {
+          "minimum_edge_mm": 0.0011163005290187693,
+          "maximum_edge_mm": 0.3618721693285232,
+          "junction_maximum_edge_mm": 0.3580299626448973,
+          "collar_maximum_edge_mm": 0.3580299626448973
+        },
+        "inlet_flow_m2_per_s": 5.019034261671008e-05,
+        "side_fraction": 0.08443024370836638,
+        "main_fraction": 0.9155697562916338,
+        "mechanical_power_W_per_m": 8.834575212572015e-06,
+        "hydraulic_resistance_pa_s_per_m2": 3507.0774083889883,
+        "relative_mass_imbalance": 2.220446049250313e-16,
+        "nonlinear_residual": 6.216034631467693e-14,
+        "final_reynolds_residual_history": [
+          0.04201670664448667,
+          0.001062494871394573,
+          6.97720954855735e-07,
+          6.216034631467693e-14
+        ],
+        "state_passed": true,
+        "energy": {
+          "units": "W/m depth",
+          "ports_inlet_main_side_pressure_kinetic_viscous": [
+            [
+              7.382132336004653e-06,
+              6.084904740187602e-06,
+              -4.328129109108246e-14
+            ],
+            [
+              6.60940047781394e-08,
+              -4.657078484427979e-06,
+              -5.819368032745281e-08
+            ],
+            [
+              1.654860230131261e-08,
+              -5.802598627170986e-08,
+              -1.585455001222915e-08
+            ]
+          ],
+          "port_power": 8.834575212572019e-06,
+          "viscous_work": -7.404827362097305e-08,
+          "viscous_dissipation": 8.751861226432871e-06,
+          "brinkman_dissipation": 0.0,
+          "weighted_divergence": -7.001205366109332e-11,
+          "raw_closure": 8.665712518175523e-09,
+          "corrected_closure": 8.59570046451401e-09,
+          "velocity_weighted_weak_reaction": 7.382130968998397e-06,
+          "weak_form_closure": 2.219226321806267e-19
+        },
+        "solid_transport": null,
+        "minimum_penetration_length_mm": null,
+        "nominal_steps_per_minimum_penetration_length": null,
+        "elapsed_seconds": 5.330558450892568,
+        "hostname": "sc070",
+        "slurm_job_id": "2408526"
+      },
+      {
+        "case": "fitted-raw",
+        "mesh_target_mm": 0.125,
+        "geometry_sha256": "e7217405722c0a229260745cab64dc15eb7dd034c620381ce8bcc0f16ecf50a1",
+        "design_fields_sha256": null,
+        "physical_fluid_area_mm2": 85.50697489140008,
+        "analysis_area_mm2": 85.50697489140009,
+        "triangles": 16986,
+        "dofs": 77570,
+        "free_dofs": 75918,
+        "mesh_sizes": {
+          "minimum_edge_mm": 0.0011163005290187693,
+          "maximum_edge_mm": 0.18948366042148398,
+          "junction_maximum_edge_mm": 0.18839258698857,
+          "collar_maximum_edge_mm": 0.1703032562014978
+        },
+        "inlet_flow_m2_per_s": 5.019034261671008e-05,
+        "side_fraction": 0.08459633550192937,
+        "main_fraction": 0.9154036644980705,
+        "mechanical_power_W_per_m": 8.828639550033821e-06,
+        "hydraulic_resistance_pa_s_per_m2": 3504.7211176233723,
+        "relative_mass_imbalance": 9.71445146547012e-17,
+        "nonlinear_residual": 2.3179375086002096e-14,
+        "final_reynolds_residual_history": [
+          0.014377271262690502,
+          0.00031865303175742407,
+          1.7781278232632813e-07,
+          2.3179375086002096e-14
+        ],
+        "state_passed": true,
+        "energy": {
+          "units": "W/m depth",
+          "ports_inlet_main_side_pressure_kinetic_viscous": [
+            [
+              7.373333032890143e-06,
+              6.0849047401876015e-06,
+              -1.1754049492706072e-13
+            ],
+            [
+              6.246968910147313e-08,
+              -4.650679415190822e-06,
+              -5.9334275622295266e-08
+            ],
+            [
+              1.6717793230569526e-08,
+              -5.810629018514397e-08,
+              -1.6811308568107757e-08
+            ]
+          ],
+          "port_power": 8.828639550033821e-06,
+          "viscous_work": -7.614570173089795e-08,
+          "viscous_dissipation": 8.749434499561807e-06,
+          "brinkman_dissipation": 0.0,
+          "weighted_divergence": -1.7599512294266952e-11,
+          "raw_closure": 3.059348741116076e-09,
+          "corrected_closure": 3.041749228821237e-09,
+          "velocity_weighted_weak_reaction": 7.373333064261698e-06,
+          "weak_form_closure": 7.674118502123961e-19
+        },
+        "solid_transport": null,
+        "minimum_penetration_length_mm": null,
+        "nominal_steps_per_minimum_penetration_length": null,
+        "elapsed_seconds": 32.74010808812454,
+        "hostname": "sc084",
+        "slurm_job_id": "2408539"
+      },
+      {
+        "case": "fitted-raw",
+        "mesh_target_mm": 0.0625,
+        "geometry_sha256": "e7217405722c0a229260745cab64dc15eb7dd034c620381ce8bcc0f16ecf50a1",
+        "design_fields_sha256": null,
+        "physical_fluid_area_mm2": 85.50697489140008,
+        "analysis_area_mm2": 85.50697489140005,
+        "triangles": 67860,
+        "dofs": 307548,
+        "free_dofs": 304384,
+        "mesh_sizes": {
+          "minimum_edge_mm": 0.0011163005290187693,
+          "maximum_edge_mm": 0.0953260541388664,
+          "junction_maximum_edge_mm": 0.09482168816718546,
+          "collar_maximum_edge_mm": 0.08999355111814424
+        },
+        "inlet_flow_m2_per_s": 5.019034261671008e-05,
+        "side_fraction": 0.08464686305975609,
+        "main_fraction": 0.9153531369402433,
+        "mechanical_power_W_per_m": 8.82723761745319e-06,
+        "hydraulic_resistance_pa_s_per_m2": 3504.1645898941592,
+        "relative_mass_imbalance": 5.689893001203927e-16,
+        "nonlinear_residual": 8.498808176067571e-15,
+        "final_reynolds_residual_history": [
+          0.004470498332675944,
+          8.41348547310954e-05,
+          4.589626068692704e-08,
+          8.498808176067571e-15
+        ],
+        "state_passed": true,
+        "energy": {
+          "units": "W/m depth",
+          "ports_inlet_main_side_pressure_kinetic_viscous": [
+            [
+              7.37008156518534e-06,
+              6.084904740187604e-06,
+              2.277634545685278e-15
+            ],
+            [
+              6.116163386155062e-08,
+              -4.648176012147402e-06,
+              -6.036739478155873e-08
+            ],
+            [
+              1.7305609450533394e-08,
+              -5.803991908443094e-08,
+              -1.7157953875659003e-08
+            ]
+          ],
+          "port_power": 8.827237617453195e-06,
+          "viscous_work": -7.752534637958319e-08,
+          "viscous_dissipation": 8.748766265806036e-06,
+          "brinkman_dissipation": 0.0,
+          "weighted_divergence": -4.078799222375994e-12,
+          "raw_closure": 9.460052675770519e-10,
+          "corrected_closure": 9.419264683551212e-10,
+          "velocity_weighted_weak_reaction": 7.370081535646253e-06,
+          "weak_form_closure": 3.2339717926169187e-18
+        },
+        "solid_transport": null,
+        "minimum_penetration_length_mm": null,
+        "nominal_steps_per_minimum_penetration_length": null,
+        "elapsed_seconds": 273.0401953300461,
+        "hostname": "sc030",
+        "slurm_job_id": "2408551"
+      }
+    ],
+    "stokes": [
+      {
+        "case": "fitted-stokes",
+        "mesh_target_mm": 0.25,
+        "geometry_sha256": "97aac05a9bb1f533ba86ebf2891fc93870b0bc8a79bf29fa16c067bf5f88d250",
+        "design_fields_sha256": null,
+        "physical_fluid_area_mm2": 86.22814520111137,
+        "port_connected_area_mm2": 86.22814520111137,
+        "closed_pocket_area_mm2": 0.0,
+        "analysis_area_mm2": 86.22814520111135,
+        "triangles": 4312,
+        "dofs": 20057,
+        "free_dofs": 19093,
+        "mesh_sizes": {
+          "minimum_edge_mm": 0.0010629807691708351,
+          "maximum_edge_mm": 0.3754209729550912,
+          "junction_maximum_edge_mm": 0.35197214576220814,
+          "collar_maximum_edge_mm": 0.3208217786772728
+        },
+        "inlet_flow_m2_per_s": 5.019034261671008e-05,
+        "side_fraction": 0.019476236976868712,
+        "main_fraction": 0.9805237630231315,
+        "mechanical_power_W_per_m": 9.113993893535394e-06,
+        "hydraulic_resistance_pa_s_per_m2": 3617.998750944769,
+        "relative_mass_imbalance": 2.0122792321330962e-16,
+        "nonlinear_residual": 7.296420412306048e-14,
+        "final_reynolds_residual_history": [
+          0.0473076692557438,
+          0.0009108311883198206,
+          3.8688741107323343e-07,
+          7.296420412306048e-14
+        ],
+        "state_passed": true,
+        "energy": {
+          "units": "W/m depth",
+          "ports_inlet_main_side_pressure_kinetic_viscous": [
+            [
+              8.672308496721062e-06,
+              6.0849047401876015e-06,
+              -6.295165196626623e-13
+            ],
+            [
+              7.382814282549247e-08,
+              -5.717171625838453e-06,
+              -6.371730668180936e-08
+            ],
+            [
+              8.266054191699747e-10,
+              -7.024657794796874e-10,
+              -8.241178236474778e-10
+            ]
+          ],
+          "port_power": 9.113993893535394e-06,
+          "viscous_work": -6.45420540219765e-08,
+          "viscous_dissipation": 9.039328045512227e-06,
+          "brinkman_dissipation": 0.0,
+          "weighted_divergence": -1.0730727966671137e-11,
+          "raw_closure": 1.0123794001189908e-08,
+          "corrected_closure": 1.011306327322294e-08,
+          "velocity_weighted_weak_reaction": 8.672308127670296e-06,
+          "weak_form_closure": 2.286988957586611e-19
+        },
+        "solid_transport": null,
+        "minimum_penetration_length_mm": null,
+        "nominal_steps_per_minimum_penetration_length": null,
+        "elapsed_seconds": 7.7571893999993335,
+        "hostname": "Jackslaptop2",
+        "slurm_job_id": null
+      },
+      {
+        "case": "fitted-stokes",
+        "mesh_target_mm": 0.125,
+        "geometry_sha256": "97aac05a9bb1f533ba86ebf2891fc93870b0bc8a79bf29fa16c067bf5f88d250",
+        "design_fields_sha256": null,
+        "physical_fluid_area_mm2": 86.22814520111137,
+        "port_connected_area_mm2": 86.22814520111137,
+        "closed_pocket_area_mm2": 0.0,
+        "analysis_area_mm2": 86.22814520111139,
+        "triangles": 17184,
+        "dofs": 78506,
+        "free_dofs": 76782,
+        "mesh_sizes": {
+          "minimum_edge_mm": 0.0010629807691708351,
+          "maximum_edge_mm": 0.18936235499322251,
+          "junction_maximum_edge_mm": 0.1843023016980117,
+          "collar_maximum_edge_mm": 0.17096269322024696
+        },
+        "inlet_flow_m2_per_s": 5.019034261671008e-05,
+        "side_fraction": 0.01941522786715763,
+        "main_fraction": 0.9805847721328428,
+        "mechanical_power_W_per_m": 9.10685433434822e-06,
+        "hydraulic_resistance_pa_s_per_m2": 3615.1645471343177,
+        "relative_mass_imbalance": 4.163336342344337e-16,
+        "nonlinear_residual": 2.0003421662140308e-14,
+        "final_reynolds_residual_history": [
+          0.016690312003407582,
+          0.00025030785896922904,
+          9.876215757145465e-08,
+          2.0003421662140308e-14
+        ],
+        "state_passed": true,
+        "energy": {
+          "units": "W/m depth",
+          "ports_inlet_main_side_pressure_kinetic_viscous": [
+            [
+              8.666418239402924e-06,
+              6.0849047401876015e-06,
+              7.588035407946236e-15
+            ],
+            [
+              6.876268775451962e-08,
+              -5.713463885413646e-06,
+              -6.540430230439606e-08
+            ],
+            [
+              9.253542530309786e-10,
+              -6.928018362049756e-10,
+              -9.48472421943344e-10
+            ]
+          ],
+          "port_power": 9.106854334348226e-06,
+          "viscous_work": -6.6352767138304e-08,
+          "viscous_dissipation": 9.037140281438402e-06,
+          "brinkman_dissipation": 0.0,
+          "weighted_divergence": -2.590158427831777e-11,
+          "raw_closure": 3.361285771519008e-09,
+          "corrected_closure": 3.335384187240934e-09,
+          "velocity_weighted_weak_reaction": 8.666418130084062e-06,
+          "weak_form_closure": 8.673617379884035e-19
+        },
+        "solid_transport": null,
+        "minimum_penetration_length_mm": null,
+        "nominal_steps_per_minimum_penetration_length": null,
+        "elapsed_seconds": 40.67801591800526,
+        "hostname": "sc036",
+        "slurm_job_id": "2408990"
+      },
+      {
+        "case": "fitted-stokes",
+        "mesh_target_mm": 0.0625,
+        "geometry_sha256": "97aac05a9bb1f533ba86ebf2891fc93870b0bc8a79bf29fa16c067bf5f88d250",
+        "design_fields_sha256": null,
+        "physical_fluid_area_mm2": 86.22814520111137,
+        "port_connected_area_mm2": 86.22814520111137,
+        "closed_pocket_area_mm2": 0.0,
+        "analysis_area_mm2": 86.2281452011114,
+        "triangles": 68470,
+        "dofs": 310363,
+        "free_dofs": 307087,
+        "mesh_sizes": {
+          "minimum_edge_mm": 0.0010629807691708351,
+          "maximum_edge_mm": 0.09779137901597545,
+          "junction_maximum_edge_mm": 0.0930757504965109,
+          "collar_maximum_edge_mm": 0.08701325349751936
+        },
+        "inlet_flow_m2_per_s": 5.019034261671008e-05,
+        "side_fraction": 0.019482897621330472,
+        "main_fraction": 0.9805171023786705,
+        "mechanical_power_W_per_m": 9.105664995988117e-06,
+        "hydraulic_resistance_pa_s_per_m2": 3614.6924133199254,
+        "relative_mass_imbalance": 9.853229343548264e-16,
+        "nonlinear_residual": 1.077473292459935e-14,
+        "final_reynolds_residual_history": [
+          0.005435873961581301,
+          6.589850962714799e-05,
+          2.8054097848170118e-08,
+          1.077473292459935e-14
+        ],
+        "state_passed": true,
+        "energy": {
+          "units": "W/m depth",
+          "ports_inlet_main_side_pressure_kinetic_viscous": [
+            [
+              8.663152933266645e-06,
+              6.084904740187604e-06,
+              2.4246331853298013e-14
+            ],
+            [
+              6.767069748941697e-08,
+              -5.71034127640624e-06,
+              -6.654291487943412e-08
+            ],
+            [
+              9.756258231977471e-10,
+              -6.977243724993054e-10,
+              -9.859938986426322e-10
+            ]
+          ],
+          "port_power": 9.105664995988124e-06,
+          "viscous_work": -6.75288845317449e-08,
+          "viscous_dissipation": 9.037017025923382e-06,
+          "brinkman_dissipation": 0.0,
+          "weighted_divergence": -1.6592880038658833e-12,
+          "raw_closure": 1.1190855329967151e-09,
+          "corrected_closure": 1.117426244992613e-09,
+          "velocity_weighted_weak_reaction": 8.663152945799107e-06,
+          "weak_form_closure": 3.415236843329339e-18
+        },
+        "solid_transport": null,
+        "minimum_penetration_length_mm": null,
+        "nominal_steps_per_minimum_penetration_length": null,
+        "elapsed_seconds": 313.72802596725523,
+        "hostname": "sc036",
+        "slurm_job_id": "2408989"
+      }
+    ]
+  },
+  "successive_comparisons": {
+    "original": [
+      {
+        "coarse_mm": 0.25,
+        "fine_mm": 0.125,
+        "power_difference_W_per_m": 5.2616604500794486e-09,
+        "power_difference_percent": 0.05671339767302987,
+        "side_difference_pp": 0.011480544589015373,
+        "passed": true
+      },
+      {
+        "coarse_mm": 0.125,
+        "fine_mm": 0.0625,
+        "power_difference_W_per_m": 1.6981872388215845e-09,
+        "power_difference_percent": 0.018307452754581392,
+        "side_difference_pp": 0.0030980752109055487,
+        "passed": true
+      }
+    ],
+    "navier_stokes": [
+      {
+        "coarse_mm": 0.25,
+        "fine_mm": 0.125,
+        "power_difference_W_per_m": 5.935662538193934e-09,
+        "power_difference_percent": 0.06723190480883541,
+        "side_difference_pp": 0.01660917935629863,
+        "passed": true
+      },
+      {
+        "coarse_mm": 0.125,
+        "fine_mm": 0.0625,
+        "power_difference_W_per_m": 1.4019325806312582e-09,
+        "power_difference_percent": 0.015881894669509757,
+        "side_difference_pp": 0.005052755782672391,
+        "passed": true
+      }
+    ],
+    "stokes": [
+      {
+        "coarse_mm": 0.25,
+        "fine_mm": 0.125,
+        "power_difference_W_per_m": 7.139559187174308e-09,
+        "power_difference_percent": 0.0783976434128974,
+        "side_difference_pp": 0.0061009109711081255,
+        "passed": true
+      },
+      {
+        "coarse_mm": 0.125,
+        "fine_mm": 0.0625,
+        "power_difference_W_per_m": 1.1893383601018235e-09,
+        "power_difference_percent": 0.01306152115881527,
+        "side_difference_pp": 0.00676697541728416,
+        "passed": true
+      }
+    ]
+  },
+  "mesh_screen_passed": {
+    "original": true,
+    "navier_stokes": true,
+    "stokes": true
+  },
+  "comparison": {
+    "signed_difference_definition": "Stokes-optimized contour minus Navier\u2013Stokes-optimized contour, both evaluated under fitted-wall Navier\u2013Stokes",
+    "by_mesh": [
+      {
+        "mesh_target_mm": 0.25,
+        "stokes_minus_navier_stokes_power_W_per_m": 2.7941868096337824e-07,
+        "stokes_minus_navier_stokes_side_flow_pp": -6.495400673149768
+      },
+      {
+        "mesh_target_mm": 0.125,
+        "stokes_minus_navier_stokes_power_W_per_m": 2.7821478431439787e-07,
+        "stokes_minus_navier_stokes_side_flow_pp": -6.518110763477174
+      },
+      {
+        "mesh_target_mm": 0.0625,
+        "stokes_minus_navier_stokes_power_W_per_m": 2.784273785349273e-07,
+        "stokes_minus_navier_stokes_side_flow_pp": -6.516396543842562
+      }
+    ],
+    "finest_paired": {
+      "mesh_target_mm": 0.0625,
+      "stokes_minus_navier_stokes_power_W_per_m": 2.784273785349273e-07,
+      "stokes_minus_navier_stokes_side_flow_pp": -6.516396543842562
+    },
+    "mesh_screen_passed": true,
+    "power_uncertainty_screen_W_per_m": 1.3075221725368242e-08,
+    "side_flow_uncertainty_screen_pp": 0.022710090327406757,
+    "combined_finest_raw_energy_residual_W_per_m": 2.065090800573767e-09,
+    "power_difference_resolved": true,
+    "side_flow_difference_resolved": true,
+    "power_comparison_status": "navier_stokes_contour_lower_power"
+  },
+  "stokes_vs_original": {
+    "by_mesh": [
+      {
+        "spacing_mm": 0.25,
+        "power_saving_W_per_m": 1.688999772339035e-07,
+        "power_saving_percent": 1.8194754737609247,
+        "side_increase_pp": -2.0911606784447194,
+        "combined_raw_energy_residual_W_per_m": 1.8960976196201682e-08
+      },
+      {
+        "spacing_mm": 0.125,
+        "power_saving_W_per_m": 1.7077787597099836e-07,
+        "power_saving_percent": 1.840748502414738,
+        "side_increase_pp": -2.0857810448268124,
+        "combined_raw_energy_residual_W_per_m": 6.632647041871824e-09
+      },
+      {
+        "spacing_mm": 0.0625,
+        "power_saving_W_per_m": 1.702690270922786e-07,
+        "power_saving_percent": 1.8355998077241051,
+        "side_increase_pp": -2.0759159941986223,
+        "combined_raw_energy_residual_W_per_m": 1.961300850410018e-09
+      }
+    ],
+    "screen_passed": true,
+    "power_improvement_resolved": true,
+    "reference_side_flow_maintained": false,
+    "fitted_performance_verified": false,
+    "paired_power_uncertainty_screen_W_per_m": 1.2401219637253757e-08,
+    "paired_side_uncertainty_screen_pp": 0.0175814555601235,
+    "energy_residual_below_power_saving": true,
+    "paired_power_apparent_convergence": null
+  },
+  "uncertainty_definition": "Maximum of the latest two paired differences and corresponding sums of absolute individual changes. Both contours must pass the existing mesh screen. A resolved power difference must also exceed the combined raw energy residual. This is a screening estimate."
+}

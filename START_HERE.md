@@ -1,0 +1,14 @@
+# Project 4 website handoff — final fixed-pipe study
+
+**Assignment:** complete the existing GitHub Pages report and interactive WebGL viewer. No new CFD, optimization, or solver redesign. Read this file, `REPORT_CONTENT.md`, `SOURCE_MAP.md`, `VIEWER_SPEC.md`, and `COURSE_CHECKLIST.md` first. The complete extracted source evidence is under `evidence/`; no ChatGPT Library access is needed. Historical material is clearly separated. The raw beta=8 Navier–Stokes contour is the primary design. The optional smoothed contour is provisional. The Stokes optimum is a completed comparison, not the recommended design.
+
+## Immediate priorities
+1. Read the official course page https://designinformaticslab.github.io/DesignOptimization2025/project4.html and check every deliverable requirement. Inspect the existing site/repository before changing it. Preserve completed work.
+2. Build the final report in Markdown on GitHub Pages with the live viewer and headline numbers at the top. Use `REPORT_CONTENT.md` as the updated narrative; replace stale earlier-model summaries. Fill sections from actual evidence and retain missing sections as explicit shells.
+3. Run `python export_results.py` from this directory to regenerate `data/results.json` from the archived machine-readable solver outputs. Wire the report tables and viewer to these data; do not manually retype numbers. This is an archive-to-website export, NOT a single-command numerical rerun. Implement/document full numerical reproducibility separately using the bundled launchers; do not claim it has been tested unless it has.
+4. Use the actual archived field arrays and contours for the extruded numerical mode. Also implement a cylindrical main pipe and a revolved cylindrical side port as the conceptual engineering mode. Use synchronized cameras and actual checkpoints, not invented values. See `VIEWER_SPEC.md`.
+5. Include the optimization slide/section, nonlinear comparison, adjoint timing, KKT and verification evidence. The official rubric is authoritative. Test the deployed site at phone and desktop widths, in private browsing, with equations, field interpolation, loading and interaction checked.
+6. Missing data: build the layout, label it pending, set numerical values to null; do not simulate, fabricate, or claim a pass. Track gaps in `MISSING_DATA.md`. Review private paths, hostnames, credentials and personal identifiers before public publication. Do not publish the entire raw handoff indiscriminately.
+
+## Handoff command to Codex
+Use this entire folder as the source package. Start with START_HERE.md. Complete the website now, using the newest evidence, the actual numerical geometry/fields and the course page. Do not perform new simulations. Leave shells only where the evidence genuinely does not exist. Return the deployed URL, commit, checked acceptance criteria, and any remaining blockers. Do not claim deployment or compliance without testing.

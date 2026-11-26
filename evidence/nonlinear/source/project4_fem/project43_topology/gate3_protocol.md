@@ -1,0 +1,10 @@
+# Prospective Gate 3 diagnostic screen
+
+The existing mathematical review conversation authorized the diagnostic resistance screen while the Gate 2 optimizer review remains open. Production resistance, mesh and optimization require further review.
+
+1. Establish independent fitted references for the exact sharp T and an obstruction case. The latter removes [13, 14] × [0, 1] mm and adds [10.5, 11.5] × [4, 5] mm of fluid. Both have 83 mm² of fluid and identical fixed ports. The reference geometry is held fixed at all analysis levels.
+2. Screen the three binary penalties 100,000, 1,000,000 and 10,000,000 kg/(m³·s) on three common design-aligned meshes with axis spacing 0.25, 0.125 and 0.0625 mm. Use a 0.25 mm binary design grid and objective per unit depth. Preserve all mesh and resistance results.
+3. Independently check both successive mesh changes in fitted and immersed flow split and power against 0.02 percentage points and 0.5% respectively. Inspect their direction and order. Measure the fitted-versus-immersed discrepancy and the previously approved directional leakage limits. Preregistered through-solid cuts are in `leakage.py`.
+4. Require confirming local resolution for a production candidate. Use normal spacing at most half the local Brinkman penetration length and check tangential refinement at corners and narrow passages. None of the three uniform screening meshes meets this condition at the finest level for any of the proposed maximum resistances. The uniform results are diagnostic data.
+5. Investigate filtered and projected seams, compare physical reconstruction, and select a design-independent analysis refinement envelope with sufficient resolution for interfaces that move during optimization. Review any stage-boundary adaptation before using it. Check runtime and memory.
+6. Repeat the production derivative verification at the proposed resistance and analysis mesh using representative projection stages. Return the evidence for mathematical review before production.

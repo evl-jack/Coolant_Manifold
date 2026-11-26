@@ -1,0 +1,66 @@
+{
+  "case": "fitted-raw",
+  "mesh_target_mm": 0.125,
+  "geometry_sha256": "e7217405722c0a229260745cab64dc15eb7dd034c620381ce8bcc0f16ecf50a1",
+  "design_fields_sha256": null,
+  "physical_fluid_area_mm2": 85.50697489140008,
+  "analysis_area_mm2": 85.50697489140009,
+  "triangles": 16986,
+  "dofs": 77570,
+  "free_dofs": 75918,
+  "mesh_sizes": {
+    "minimum_edge_mm": 0.0011163005290187693,
+    "maximum_edge_mm": 0.18948366042148398,
+    "junction_maximum_edge_mm": 0.18839258698857,
+    "collar_maximum_edge_mm": 0.1703032562014978
+  },
+  "inlet_flow_m2_per_s": 5.019034261671008e-05,
+  "side_fraction": 0.08459633550192937,
+  "main_fraction": 0.9154036644980705,
+  "mechanical_power_W_per_m": 8.828639550033821e-06,
+  "hydraulic_resistance_pa_s_per_m2": 3504.7211176233723,
+  "relative_mass_imbalance": 9.71445146547012e-17,
+  "nonlinear_residual": 2.3179375086002096e-14,
+  "final_reynolds_residual_history": [
+    0.014377271262690502,
+    0.00031865303175742407,
+    1.7781278232632813e-07,
+    2.3179375086002096e-14
+  ],
+  "state_passed": true,
+  "energy": {
+    "units": "W/m depth",
+    "ports_inlet_main_side_pressure_kinetic_viscous": [
+      [
+        7.373333032890143e-06,
+        6.0849047401876015e-06,
+        -1.1754049492706072e-13
+      ],
+      [
+        6.246968910147313e-08,
+        -4.650679415190822e-06,
+        -5.9334275622295266e-08
+      ],
+      [
+        1.6717793230569526e-08,
+        -5.810629018514397e-08,
+        -1.6811308568107757e-08
+      ]
+    ],
+    "port_power": 8.828639550033821e-06,
+    "viscous_work": -7.614570173089795e-08,
+    "viscous_dissipation": 8.749434499561807e-06,
+    "brinkman_dissipation": 0.0,
+    "weighted_divergence": -1.7599512294266952e-11,
+    "raw_closure": 3.059348741116076e-09,
+    "corrected_closure": 3.041749228821237e-09,
+    "velocity_weighted_weak_reaction": 7.373333064261698e-06,
+    "weak_form_closure": 7.674118502123961e-19
+  },
+  "solid_transport": null,
+  "minimum_penetration_length_mm": null,
+  "nominal_steps_per_minimum_penetration_length": null,
+  "elapsed_seconds": 32.74010808812454,
+  "hostname": "sc084",
+  "slurm_job_id": "2408539"
+}

@@ -1,0 +1,20 @@
+{
+  "completed": true,
+  "results": {
+    "power_w_per_m": 8.922987606668826e-06,
+    "normalized_power": 1.0,
+    "hydraulic_resistance_pa_s_per_m2": 3542.1746374574855,
+    "inlet_flow_m2_per_s": 5.019034261671008e-05,
+    "main_fraction": 0.9293542063186314,
+    "side_fraction": 0.07064579368136314,
+    "physical_area_mm2": 83.0,
+    "max_turn_degrees": 90.0,
+    "turn_secant_mm": 0.25,
+    "turn_sample_spacing_mm": 0.025,
+    "ports_connected": true,
+    "editable_cells": 128,
+    "mass_imbalance": 5.440092820663267e-15,
+    "nonlinear_residual": 5.507394247003831e-15,
+    "pumping_power_change_percent": 0.0
+  }
+}

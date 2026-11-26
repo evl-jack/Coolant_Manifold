@@ -1,6 +1,0 @@
-matplotlib==3.11.2
-nlopt==2.11.0
-numpy==2.5.5
-scipy==1.18.1
-shapely==2.2.0
-triangle==20250106

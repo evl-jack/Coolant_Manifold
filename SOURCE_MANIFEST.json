@@ -1,0 +1,20 @@
+{
+  "pilot": {
+    "archive": "Fixed_Pipe_Pilot.zip",
+    "sha256": "ef1b5502a2309cf473c134b5963396d4c55741d8323f35cba3e7550fae8cd351",
+    "entries": 163,
+    "directory": "evidence/pilot"
+  },
+  "verification": {
+    "archive": "Fixed_Pipe_Verification_Evidence.zip",
+    "sha256": "570e486e88056f1d557b723ef144c304c5262f108f6271a08af76c3a86c137d0",
+    "entries": 343,
+    "directory": "evidence/verification"
+  },
+  "nonlinear": {
+    "archive": "Project4_Stokes_vs_Navier_Stokes_Evidence.zip",
+    "sha256": "7dd85cd415bcedd4857becb0034ec3335c604fda5919b888900a2c46c1559beb",
+    "entries": 307,
+    "directory": "evidence/nonlinear"
+  }
+}

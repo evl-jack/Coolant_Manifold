@@ -1,0 +1,54 @@
+{
+  "source": "evidence/verification/mesh-results/fitted-raw-0.25/fields.npz",
+  "mesh_target_mm": 0.25,
+  "byte_order": "little-endian",
+  "arrays": {
+    "triangles": {
+      "file": "triangles.bin",
+      "shape": [
+        4338,
+        3
+      ],
+      "dtype": "uint32"
+    },
+    "velocity_dofs": {
+      "file": "velocity_dofs.bin",
+      "shape": [
+        4338,
+        6
+      ],
+      "dtype": "uint32"
+    },
+    "pressure_points_mm": {
+      "file": "pressure_points_mm.bin",
+      "shape": [
+        2296,
+        2
+      ],
+      "dtype": "float32"
+    },
+    "velocity_points_mm": {
+      "file": "velocity_points_mm.bin",
+      "shape": [
+        8929,
+        2
+      ],
+      "dtype": "float32"
+    },
+    "pressure_pa": {
+      "file": "pressure_pa.bin",
+      "shape": [
+        2296
+      ],
+      "dtype": "float32"
+    },
+    "velocity_m_per_s": {
+      "file": "velocity_m_per_s.bin",
+      "shape": [
+        8929,
+        2
+      ],
+      "dtype": "float32"
+    }
+  }
+}

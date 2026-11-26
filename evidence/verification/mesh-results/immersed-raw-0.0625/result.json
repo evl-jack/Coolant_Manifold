@@ -1,0 +1,74 @@
+{
+  "case": "immersed-raw",
+  "mesh_target_mm": 0.0625,
+  "geometry_sha256": "e7217405722c0a229260745cab64dc15eb7dd034c620381ce8bcc0f16ecf50a1",
+  "design_fields_sha256": "385d0aee9d8e76d46938e2aff7e2085ea614d7c0453a4d3c6bf61b488ddd7650",
+  "physical_fluid_area_mm2": 85.50697489140008,
+  "analysis_area_mm2": 89.00000000000009,
+  "triangles": 45568,
+  "dofs": 207219,
+  "free_dofs": 204079,
+  "mesh_sizes": {
+    "minimum_edge_mm": 0.0625,
+    "maximum_edge_mm": 0.08838834764831845,
+    "junction_maximum_edge_mm": 0.08838834764831845,
+    "collar_maximum_edge_mm": 0.08838834764831845
+  },
+  "inlet_flow_m2_per_s": 5.019034261671008e-05,
+  "side_fraction": 0.08429884795010113,
+  "main_fraction": 0.9157011520498985,
+  "mechanical_power_W_per_m": 8.83177377365927e-06,
+  "hydraulic_resistance_pa_s_per_m2": 3505.9653160828534,
+  "relative_mass_imbalance": 3.191891195797325e-16,
+  "nonlinear_residual": 1.8249724648145005e-14,
+  "final_reynolds_residual_history": [
+    0.004939784213034346,
+    9.616032237929804e-05,
+    1.0417260713681958e-07,
+    1.8249724648145005e-14
+  ],
+  "state_passed": true,
+  "energy": {
+    "units": "W/m depth",
+    "ports_inlet_main_side_pressure_kinetic_viscous": [
+      [
+        7.3824088876022645e-06,
+        6.084904740187604e-06,
+        2.4693539266524166e-13
+      ],
+      [
+        6.079492996515887e-08,
+        -4.6549313227844686e-06,
+        -5.916928125426234e-08
+      ],
+      [
+        1.6076400057130555e-08,
+        -5.747986136841628e-08,
+        -1.6235264756450573e-08
+      ]
+    ],
+    "port_power": 8.831773773659272e-06,
+    "viscous_work": -7.540429907532025e-08,
+    "viscous_dissipation": 8.727619034136623e-06,
+    "brinkman_dissipation": 2.7279533775590877e-08,
+    "weighted_divergence": -3.9376549025286805e-12,
+    "raw_closure": 1.4709066717384963e-09,
+    "corrected_closure": 1.4669690168352919e-09,
+    "velocity_weighted_weak_reaction": 7.382408949521883e-06,
+    "weak_form_closure": 1.0515067007214884e-17
+  },
+  "solid_transport": {
+    "definition": "Element-aligned projected-density cells below 0.5",
+    "solid_area_mm2": 3.5000000000000027,
+    "solid_rms_speed_over_inlet_bulk": 0.03944557910325468,
+    "solid_sampled_max_speed_over_inlet_bulk": 0.24574259932738593,
+    "gross_ingress_over_inlet": 0.03554737724054434,
+    "gross_egress_over_inlet": 0.035251786018986514,
+    "net_ingress_over_inlet": 0.00029559122155782547
+  },
+  "minimum_penetration_length_mm": 0.1000999500499376,
+  "nominal_steps_per_minimum_penetration_length": 1.6015992007990016,
+  "elapsed_seconds": 153.67769974609837,
+  "hostname": "sc017",
+  "slurm_job_id": "2408547"
+}

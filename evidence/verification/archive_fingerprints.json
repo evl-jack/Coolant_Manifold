@@ -1,0 +1,33 @@
+{
+  "original_archive_sha256": "ef1b5502a2309cf473c134b5963396d4c55741d8323f35cba3e7550fae8cd351",
+  "shared_pilot_inputs": {
+    "input/configuration.json": "37276b31733ac0d2e9982a074eab6b107c71fac939f78673567b148dbf4d5d49",
+    "input/mesh.npz": "83a65e9d2832ec292dd161cbb79b9daa1dee1eee5760edb3e53f95639b17b2dd",
+    "input/progress.jsonl": "dee0d817c6d5fbd48f601f653f11b8bc6870cfd99140ca2394639b8b4c6cbb0e",
+    "input/summary.json": "2f9c2a6d9df53b71262bf5367344378adf2bd1bc35e5d448647da1fe8f80fe9a",
+    "input/stage_01_beta_0/mma.json": "03c707482035b7bbe93b21d178fb2add56a24fe625b0ae4c18f58392fc8be192",
+    "input/stage_01_beta_0/summary.json": "ad7f8dff4c201b7b0ab798246879fc34a97faea3e2aa4a6c74c8588b5fe7756a",
+    "input/stage_02_beta_2/mma.json": "338cbfa0556b79e678a5870f6c17f23879e25b383e6aa8d873c4705ad57bd229",
+    "input/stage_02_beta_2/summary.json": "fbe424ec6d0793467e1da6b1fbb5ceb975bf854b2441e0ad2fbaabad58f8fb34",
+    "input/stage_03_beta_8/mma.json": "6e8259e7aee657ebd2355e62b6de6bfe0425262f7e7ab10d15ebf48101fa19f9",
+    "input/stage_03_beta_8/summary.json": "1032abffed5ad2cd0c7146e6b25584226233c31394287f0032b7c25b65696b0b",
+    "input/stage_01_beta_0/original/fields.npz": "fec15baffca5684224ab61d359e9436b3ee14378a5acf0f209b82406e35bb1f2",
+    "input/stage_01_beta_0/original/geometry.json": "2fb7d35d7e5a013e5d99b7ea42ef4adf18d2b751bb86c2c9f8955175ae3add4d",
+    "input/stage_01_beta_0/original/metrics.json": "b646686dccdb30604fc3a212f152173bc0e2f34b3b093b6cd06539ce5e3726df",
+    "input/stage_01_beta_0/selected/fields.npz": "af3f88b5ebe14475c8614d29b95b6965b73935be4db2d72af249b846a1819c1a",
+    "input/stage_01_beta_0/selected/geometry.json": "1643a140404999a5fdfacc2f014012b7d5682c1dc7394dc3b0297e0eebb61bfe",
+    "input/stage_01_beta_0/selected/metrics.json": "4e93f9e3512bc11f2777a9a985e985757afe100b215fd6d8d27c91ea071eb32e",
+    "input/stage_02_beta_2/original/fields.npz": "1fc848f29de33bc9f0b1893d330fa26820da0faa553ff33c9b14afb47a0e8441",
+    "input/stage_02_beta_2/original/geometry.json": "2fb7d35d7e5a013e5d99b7ea42ef4adf18d2b751bb86c2c9f8955175ae3add4d",
+    "input/stage_02_beta_2/original/metrics.json": "504b75266a09329fe4836c63535d414a9c7a5a06a633d7582a5b5e7755eb507f",
+    "input/stage_02_beta_2/selected/fields.npz": "719614f6ee70e3a909cdca87a0c93c2da173e4f1e19c77b4dc8d82cf327c7ea5",
+    "input/stage_02_beta_2/selected/geometry.json": "4ec68c30fcf7759ca2ac24fc4c9ba30c53a233734b1c09b459e4ea6febe3a582",
+    "input/stage_02_beta_2/selected/metrics.json": "a946a477f58c512ae6a94812d0d33bd571f36d15ebaf50912a976cabed1a565a",
+    "input/stage_03_beta_8/original/fields.npz": "8f7f71dc60e7a6054d9e9a3ccc771a4fbb9d2b633e753ffa0e2ad3bd4233b3ee",
+    "input/stage_03_beta_8/original/geometry.json": "2fb7d35d7e5a013e5d99b7ea42ef4adf18d2b751bb86c2c9f8955175ae3add4d",
+    "input/stage_03_beta_8/original/metrics.json": "d0c7c4201d35e1abc88463a0364e29bd514c8d56790ef30cbf38d0bdb1dc4195",
+    "input/stage_03_beta_8/selected/fields.npz": "385d0aee9d8e76d46938e2aff7e2085ea614d7c0453a4d3c6bf61b488ddd7650",
+    "input/stage_03_beta_8/selected/geometry.json": "e7217405722c0a229260745cab64dc15eb7dd034c620381ce8bcc0f16ecf50a1",
+    "input/stage_03_beta_8/selected/metrics.json": "6efc06eeeedec238039f2e7c0edb2fdcd26b51e268f1420307e7882f9bb5ad3c"
+  }
+}
