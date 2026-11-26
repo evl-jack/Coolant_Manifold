@@ -1,0 +1,54 @@
+name: Import verified Project 4 report
+on:
+  push:
+    branches: [project4-report-import]
+    paths: [.github/workflows/project4-import.yml]
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify and import the archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=a70ef5e413c6f5a2ed65b31fec64ee57bedaeac3
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$base"
+          asset=$(gh api "repos/$GITHUB_REPOSITORY/releases" --paginate --jq             '.[] | select(.draft and .name == "Temporary Project 4 archive import") | .assets[] | select(.name == "Project4_GitHub_Ready.zip") | .id')
+          test -n "$asset"
+          archive="$RUNNER_TEMP/project4.zip"
+          gh api "repos/$GITHUB_REPOSITORY/releases/assets/$asset" -H "Accept: application/octet-stream" > "$archive"
+          echo "cca1fe1e86c1f8027f87360f536fd09bc24323f7f6511fd5786ed63e328569c2  $archive" | sha256sum --check
+          git switch --detach "$base"
+          git rm -r --ignore-unmatch -- "Manifold Model" Outline project4-fixed-pipe rans3d             BRANCH_OPTIMIZATION_ADJOINT_PLAN.md BRINKMAN.md Definitions.md GRADIENTS_2D_AND_3D.md             "Jacks solver.code-workspace" MANIFOLD_HANDOFF.md Sensitivities.md Website.md             brinkman.py case.py compare_models.py optimize.py plot_optimized.py plot_shape.py             presentaion.md shape_search.py
+          python - "$archive" <<'PY'
+          import sys
+          from pathlib import Path
+          from zipfile import ZipFile
+
+          with ZipFile(sys.argv[1]) as bundle:
+              assert bundle.testzip() is None
+              assert sum(not entry.is_dir() for entry in bundle.infolist()) == 840
+              bundle.extractall()
+
+          required = (
+              'index.md', 'index.html', 'README.md', 'build_site.py',
+              'build_viewer.py', 'export_results.py', 'rebuild_site.py',
+              'assets/fields', 'assets/viewer', 'assets/viewer.js',
+              'assets/site.css', 'data/results.json', 'evidence/pilot',
+              'evidence/verification', 'evidence/nonlinear', 'historical', '.nojekyll',
+          )
+          for path in required:
+              assert Path(path).exists(), path
+          PY
+          git add -A
+          git diff --cached --check -- README.md
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com'             commit -m "Organize repository around the final Project 4 report"
+          git push origin HEAD:refs/heads/project4-report
