@@ -1,109 +1,40 @@
+"""Render the course report into the static Project 4 viewer page."""
+
+from html import escape
 from pathlib import Path
-import json,re,html,shutil
-import mistune
-R=Path(__file__).resolve().parent
-v=R/'evidence/verification';n=R/'evidence/nonlinear'
-def read(p):return json.loads(p.read_text())
-j=read(R/'data/results.json'); h=j['headline']; mesh=j['mesh']; k=j['kkt']['results']['stages'][-1]; nl=j['nonlinear']
-# Historical benchmark archive: extracted raw JSON, not a current rerun.
-b=read(R/'historical/baseline_verification.json')
-report=(R/'REPORT_CONTENT.md').read_text()
-report=report.replace('# Adjoint-based optimization of a coolant manifold junction\n','').replace('Insert the live viewer at the top. Source: verification and nonlinear README/JSON; regenerate exact numbers using export_results.py.','The interactive comparison above uses the archived fields and reconstructed contours. Numerical metrics refer to the finest fitted meshes; displayed fields use the coarser 0.25 mm meshes.')
-report=report.replace('Confirm physical scales in code.','Fluid properties: density 998.2 kg/m³ and dynamic viscosity 0.001002 Pa·s.').replace('Use the actual weak residual, quadrature and elimination conventions in source.','The weak form is integrated over triangular elements with prescribed velocity degrees of freedom eliminated. Natural outlet traction is zero. The assembled residual includes viscous, pressure, continuity, convection and Brinkman terms.')
-report=report.replace('Read stage termination details instead of claiming every native stop converged.','The final endpoint is independently audited rather than relying on the native termination flag.')
-report=report.replace('**Slide diagram:**','**Optimization loop:**').replace('Use real geometry and histories.','The following figure shows the actual reconstructed contours.')
-report=report.replace('Use the existing ladder with exact expected values, computed values, error and pass/fail. Historical V1–V7 summaries are in historical draft, but verify provenance and applicability. Current archive contains mass/energy checks, analysis refinement, tangent/filter/transfer tests and gradient tests. Do not invent missing exact or independent hand-derived fixtures. Preserve original failure flags. See MISSING_DATA.md.', '''The earlier solver benchmark output was recovered from the original archived `Project43_searchable.txt`; these are historical results, not a fresh rerun on the final executable. The benchmark definitions are present in the final source snapshot. Current fixed-pipe checks separately cover the final design's response derivatives and mesh sensitivity.
+import re
 
-| Test | Exact/expected | Measured error or result | Archived threshold / status |
-|---|---|---|---|
-| V1 element basis | Kronecker interpolation, partition 1, gradient sum 0 | max defect %.3e | 1e-12; pass |
-| V2 exact pipe | nondimensional flux 1 | %.15f; relative error %.3e | 1e-8; pass |
-| V3 rotation | same flux 1 after rotation | %.15f; error %.3e | 1e-8; pass |
-| V4 conservation | net flux defect 0 | %.3e (largest of three pipe fixtures) | 1e-10; pass |
-| V5 spatial convergence | velocity order >2.6, pressure >1.7 | %.3f and %.3f (last interval) | pass |
-| V6 nonlinear manufactured | velocity error <0.01; tangent <1e-7 | %.3e; %.3e | pass |
-| Uniform Brinkman | analytical flux %.12f | %.12f; error %.3e | 5e-4; pass |
-| Layered Brinkman | analytical flux %.12f at alpha=1600 | %.12f; error %.3e | 5e-4; pass finite-penalty fixture |
-| Final gradient check | FD agrees with adjoint | 15/15 directional tests; 6 follow-up Taylor tests passed | see sensitivity section |
+import markdown2
 
-For the straight channel, $u(y)=Gy(H-y)/(2\\mu)$ and $Q=GH^3/(12\\mu)$, with nondimensional $G=12,H=1,\\mu=1$. The manufactured field uses $a(t)=t^2(1-t)^2$, $u=8(a(x)a'(y),-a'(x)a(y))$, $p=x+0.5y$ and forcing $-\\Delta u+\\nabla p+c(u\\cdot\\nabla)u$ with $c=0$ or 35. The exact field sets the boundary values. The reported nonlinear residual sequence is 0.0163032, 0.00235552, 1.43605e-7, 2.68584e-16. Independent team derivation of these fixtures is not documented.
+ROOT = Path(__file__).resolve().parent
 
-[Historical raw benchmark JSON](historical/baseline_verification.json) · [Benchmark code](evidence/verification/source/project4_fem/verify.py)
 
-![Historical manufactured-solution convergence](assets/manufactured_convergence.png)'''%(max(b['element'].values()),b['poiseuille']['computed_flow'],b['poiseuille']['relative_flux_error'],b['rotated']['computed_flow'],b['rotated']['relative_flux_error'],max(b[x]['relative_mass_imbalance'] for x in ['poiseuille','rotated','brinkman']),b['orders']['velocity_l2'][-1],b['orders']['pressure_l2'][-1],b['nonlinear']['velocity_l2'],b['nonlinear']['tangent_relative_error'],b['brinkman']['exact_flow'],b['brinkman']['computed_flow'],b['brinkman']['relative_flux_error'],b['layered'][-1]['exact_flow'],b['layered'][-1]['computed_flow'],b['layered'][-1]['relative_flux_error']))
-report=report.replace('Use ADJOINT_METHOD.md for full derivation of both responses.','The [full adjoint derivation](evidence/verification/source/project4_fem/project43_topology/verification/ADJOINT_METHOD.md) documents both port responses.').replace('Show the actual archived history and residual map.','The convergence history and stationarity map below are from the independent replay.').replace('Embed real nonlinear figures and complete six-row cross table from JSON.','The complete cross-evaluation is shown below.').replace('All rows finest 0.0625 mm; use regenerated JSON for display.','All rows finest 0.0625 mm.').replace('AI disclosure must be completed by team: actual agent-written code, human-derived checks and a documented bug caught through verification. Do not invent student contributions. See historical draft for one exploratory SST issue, not automatically a bug in the graded laminar solver.','ChatGPT assisted with mathematical formulation, study planning, interpretation and report drafting; Codex assisted with implementation, numerical tests, job execution and plotting. Team-specific independent derivations/checks and a verified bug in the graded FEM path have not been supplied. In the separate exploratory SST branch, a missing wall-distance configuration caused initialization failure; this is not evidence of a graded laminar-solver bug. Team confirmation is required before submission.')
-report=report.replace('The larger 960-entry array contains fixed values; do not call all 960 independent.','The larger 960-entry array contains fixed values; only 128 are independent.').replace('Keep outward normal and sign conventions consistent with source.','The normal points outward; inlet flux is positive when defined as minus the outward integral.').replace('Distinguish port power from dissipation and account for viscous boundary work and discrete divergence defect in the energy audit.','Port power differs from dissipation by viscous boundary work and a discrete divergence defect, both included in the energy audit.')
-report=report.replace('## 4. Verification','![Actual optimized and original junction](evidence/pilot/local/stage_03_beta_8/images/junction_magnified.png)\n\n![Editable Brinkman region](evidence/pilot/local/stage_03_beta_8/images/editable_brinkman_region.png)\n\n## 4. Verification')
-# insert gradient check table and figures
-s='\n\n| Design / direction | Best scaled power error | Best scaled side-flow error | Initial Taylor screen |\n|---|---:|---:|---|\n'
-for case,a in j['adjoint_initial']['cases'].items():
- for d,t in a['directions'].items():
-  if not t.get('records'):continue
-  e=[min(r['screen_scaled_error'][i] for r in t['records']) for i in range(2)]
-  s+=f'| {case} / {d} | {e[0]:.3e} | {e[1]:.3e} | {"Pass" if t["taylor_passed"] else "Flagged"} |\n'
-s+='\n![Taylor remainder tests](evidence/verification/adjoint-evidence/adjoint_taylor_remainders.png)\n\n![Follow-up Taylor checks](evidence/verification/adjoint-coordinate-evidence/adjoint_taylor_remainders.png)\n\n![Measured sensitivity cost](evidence/verification/timing-2408534/figures/fixed_pipe_sensitivity_cost.png)\n\n'
-report=report.replace('## 6. Optimization and KKT',s+'## 6. Optimization and KKT')
-report=report.replace('## 7. Nonlinearity', '\n\n| KKT quantity | Residual | Tolerance |\n|---|---:|---:|\n| Primal | 0 | 1e-6 |\n| Dual | 0 | 1e-8 |\n| Stationarity | 1.369e-8 | 1e-4 |\n| Complementarity | 0 | 1e-5 |\n\n![KKT history](evidence/verification/kkt-results/fixed_pipe_kkt_history.png)\n\n![Spatial stationarity](evidence/verification/kkt-results/fixed_pipe_kkt_spatial.png)\n\n## 7. Nonlinearity')
-s='\n\n| Design | Evaluator | Power (µW/m) | Side flow (%) | Common immersed floor |\n|---|---|---:|---:|---|\n'
-for a in nl['cross_evaluation']['cases']:s+=f'| {a["design"].replace("_"," ")} | {a["model"].replace("_"," ")} | {a["power_w_per_m"]*1e6:.6f} | {a["side_flow_percent"]:.6f} | {"Pass" if a["constraint_satisfied"] else "Fail"} |\n'
-for p in ['geometry_comparison','density_difference','velocity_comparison','pressure_comparison','objective_history','side_flow_history','optimization_runtime']:s+=f'\n![{p.replace("_"," ")}](evidence/nonlinear/figures/{p}.png)\n'
-report=report.replace('## 8. Results',s+'\n## 8. Results')
-s='\n\n| Case | h (mm) | Triangles | DOFs | Power (µW/m) | Side flow (%) |\n|---|---:|---:|---:|---:|---:|\n'
-for name,rows in mesh['series'].items():
- for a in rows:s+=f'| {name} | {a["mesh_target_mm"]} | {a["triangles"]} | {a["dofs"]} | {a["mechanical_power_W_per_m"]*1e6:.6f} | {a["side_fraction"]*100:.6f} |\n'
-s+='\n![Mesh convergence](evidence/verification/mesh-evidence/mesh_convergence.png)\n\n![Fitted pressure and speed](evidence/verification/mesh-evidence/fitted_pressure_speed.png)\n\n![Geometry finishing comparison](assets/three_panel.png)\n\n'
-report=report.replace('## 9. Bonus',s+'## 9. Bonus')
-report+='''\n\n## 11. Reproducibility and references\n\nThe source snapshots, exact inputs, archived Slurm jobs and numerical outputs are included. `python export_results.py` regenerates the numerical JSON from frozen solver outputs; `python build_site.py` regenerates this page and `python build_viewer.py` regenerates the geometry assets. This is archive reproduction, not an independently tested single-command CFD rerun. For full numerical reproduction see the linked launchers and README files.\n\n- [Project 4 official specification](https://designinformaticslab.github.io/DesignOptimization2025/project4.html)\n- [Pilot README](evidence/pilot/README.md)\n- [Verification README](evidence/verification/README.md) and [Sol launcher](evidence/verification/launch_sol_audit.sh)\n- [Nonlinear investigation README](evidence/nonlinear/README.md) and [Sol launcher](evidence/nonlinear/launch_remaining_sol.sh)\n- [Numerical data](data/results.json), [source map](SOURCE_MAP.md), [remaining gaps](MISSING_DATA.md)\n- Borrvall and Petersson (2003), *Topology optimization of fluids in Stokes flow*, IJNMF 41, 77–107.\n\n## 12. Course compliance\n\nThe report provides the formulation, historical and final verification evidence, sensitivities, measured cost, KKT and the nonlinear comparison. Remaining qualifications: one independent PDE inequality; no comparable fixed-topology bonus control; team confirmation of independent derivations and a graded-solver bug; full end-to-end numerical reproduction not rerun. Public deployment and Canvas submission require team action.\n'''
-(R/'index.md').write_text('# Adjoint-based optimization of a coolant manifold junction\n\n'+report)
-# Additional report evidence and explicit response derivatives.
-report=report.replace('The weak form is integrated',r"""For tests $v,q_p$, the dimensional weak residual on the free space is
+def render_report(source):
+    heading, separator, report = source.partition("\n")
+    if not separator or not heading.startswith("# "):
+        raise ValueError("index.md must begin with a level-one heading")
+    math = []
 
-$$
-\int_\Omega [2\mu D(u):D(v)+\rho((u\cdot\nabla)u)\cdot v+\alpha u\cdot v-p\nabla\cdot v-q_p\nabla\cdot u]\,dA=0.
-$$
+    def protect(match):
+        display = match.group(1) is not None
+        tex = escape(match.group(1) if display else match.group(2), quote=False)
+        delimiters = (r"\[", r"\]") if display else (r"\(", r"\)")
+        math.append(delimiters[0] + tex.strip() + delimiters[1])
+        return f"PROJECTFOURMATH{len(math) - 1:04d}TOKEN"
 
-The inlet velocity is $u_x=6U(y/H)(1-y/H)$, $u_y=0$, with $H=4$ mm and $U=Re\mu/(\rho H)$. No body force is applied in the manifold experiment. Pressure scale is $\mu U/H$. The weak form is integrated""")
-report=report.replace('Projection uses the archive\'s tanh Heaviside at threshold 0.5 (identity at beta=0).',r"""Projection at $t=0.5$ uses $\bar\gamma=[\tanh(\beta t)+\tanh(\beta(\tilde\gamma-t))]/[\tanh(\beta t)+\tanh(\beta(1-t))]$. At $\beta=0$ it is the identity.""")
-report=report.replace('Forward + two adjoint RHS for both gradients.',r"""For the mechanical power, a fixed-port state variation gives
+    report = re.sub(r"\$\$(.+?)\$\$|(?<!\$)\$([^$\n]+)\$(?!\$)", protect, report, flags=re.S)
+    body = markdown2.markdown(report, extras=["tables", "fenced-code-blocks"])
+    for index, equation in enumerate(math):
+        body = body.replace(f"PROJECTFOURMATH{index:04d}TOKEN", equation)
+    return escape(heading[2:]), body
 
-$$
-\delta P=-\int_{\Gamma_{ports}}[(\delta p+\rho u\cdot\delta u)(u\cdot n)+(p+\rho|u|^2/2)(\delta u\cdot n)]\,ds.
-$$
 
-The normalized objective has $\delta f=\delta P/P_{ref}$. The flow response has $\delta\eta=(\delta Q_{side}-\eta\delta Q_{in})/Q_{in}$, with $\delta Q_{in}=0$ on the fixed inlet. The scaled constraint derivative is $\nabla_m g=-1000\nabla_m\eta$. For either response the converged free-state tangent is transposed. The drag quadrature cotangent is $-w_q u_q\cdot\lambda_{F,q}$, transferred to cells with dimensional scale $H^2/\mu$, then multiplied by the rational derivative and the projection derivative $\beta\operatorname{sech}^2[\beta(\tilde\gamma-t)]/[\tanh(\beta t)+\tanh(\beta(1-t))]$ before the anchored filter transpose. The fixed degrees of freedom of each adjoint are zero. One forward state plus two adjoint RHS yields both complete design gradients.
+def build():
+    title, body = render_report((ROOT / "index.md").read_text(encoding="utf-8"))
+    template = (ROOT / "site_template.html").read_text(encoding="utf-8")
+    page = template.replace("<!-- TITLE -->", title).replace("<!-- REPORT -->", body)
+    (ROOT / "index.html").write_text(page, encoding="utf-8", newline="\n")
 
-For interior feasible directions, the finite difference is $(F(m+hd)-F(m-hd))/(2h)$. At active bounds the inward second-order formula is $[-3F(m)+4F(m+hd)-F(m+2hd)]/(2h)$. The Taylor remainder $|F(m+hd)-F(m)-h\nabla F\cdot d|$ should scale as $h^2$ above numerical noise. The observed tests use the archived step sizes and directions; no clipping of the perturbations.""")
-ss='\n\n| Continuation stage | Reference power (µW/m) | Selected power (µW/m) | Reference side (%) | Selected side (%) |\n|---|---:|---:|---:|---:|\n'
-for folder in ['stage_01_beta_0','stage_02_beta_2','stage_03_beta_8']:
- a=read(v/'input'/folder/'original/metrics.json')['results'];z=read(v/'input'/folder/'selected/metrics.json')['results'];ss+=f'| {folder.split("beta_")[1]} | {a["power_w_per_m"]*1e6:.6f} | {z["power_w_per_m"]*1e6:.6f} | {a["side_fraction"]*100:.6f} | {z["side_fraction"]*100:.6f} |\n'
-ss+='\nThe final row supplies the actual immersed objective and flow constraint comparison; the fitted-wall values are independent engineering validation rather than the optimizer objective.\n'
-report=report.replace('## 7. Nonlinearity',ss+'\n## 7. Nonlinearity')
-ss='\n\n| Nonlinear fitted evaluation | h (mm) | Power (µW/m) | Side (%) |\n|---|---:|---:|---:|\n'
-for name,rows in nl['fitted_wall']['series'].items():
- for a in rows:ss+=f'| {name} | {a["mesh_target_mm"]} | {a["mechanical_power_W_per_m"]*1e6:.6f} | {a["side_fraction"]*100:.6f} |\n'
-report=report.replace('## 8. Results',ss+'\n## 8. Results')
-report=report.replace('N2 nonlinear Newton + implicit differentiation is a candidate bonus, subject to actual nonlinear benchmark evidence.','N2 nonlinear Newton plus implicit differentiation is supported by the historical manufactured nonlinear benchmark and final discrete derivative tests. The source snapshot and archived benchmark output are linked above; the historical benchmark has not been rerun against the final executable, so bonus eligibility is for the instructor to decide.')
-report=report.replace("One independent PDE inequality is present; do not invent a second constraint.","The final formulation contains one independent PDE inequality, in addition to the density bounds; a second independent PDE performance constraint was not studied.")
-report=report.replace("## 3. Analysis and optimization slide","\n![Dimensioned geometry and boundary conditions](assets/manifold-geometry.svg)\n\nThe original branch is sharp; only the 4 mm × 2 mm rectangle surrounding its entrance can change. The 16 × 8 grid of 0.25 mm cells gives 128 editable controls. At fixed inlet flow, reducing power reduces effective hydraulic resistance, but preserving branch delivery is necessary to avoid merely diverting coolant away from the side outlet. No thermal load or downstream system resistance is modeled.\n\n## 3. Governing equations and finite-element analysis")
-report=report.replace("The anchored Helmholtz mapping uses","\nFor a Newtonian fluid, the Cauchy stress is $\\sigma=-pI+2\\mu D(u)$, where $D(u)=(\\nabla u+\\nabla u^T)/2$. With $x^*=x/H$, $u^*=u/U$, and $p^*=pH/(\\mu U)$, the dimensionless momentum and continuity equations are\n\n$\nRe(u^*\\cdot\\nabla^*)u^*-\\nabla^*\\cdot(2D^*(u^*)-p^*I)+\\alpha^*u^*=0,\\qquad \\nabla^*\\cdot u^*=0,\\quad \\alpha^*=\\alpha H^2/\\mu.\n$\n\nThe inlet height is the Reynolds-number length scale, $Re=\\rho UH/\\mu=50$. The inlet profile integrates to $Q_{in}=UH$ per unit depth. On the outlets $\\sigma n=0$ is a traction condition, not a prescription of zero pointwise pressure. On solid walls $u=0$; the immersed design adds distributed resistance inside the editable envelope. The fitted-wall validation instead replaces the density model with an impermeable reconstructed contour.\n\nThe anchored Helmholtz mapping uses")
-report=report.replace("## 4. Verification","\n### Density continuation and reconstruction\n\nThe filter suppresses cell-scale oscillations; increasing projection sharpness moves the design toward a more distinct fluid/solid interface. These are the actual archived selected density fields, not recreated simulations.\n\n![Selected density at beta 0](evidence/pilot/local/stage_01_beta_0/images/optimized_density.png)\n\n![Selected density at beta 2](evidence/pilot/local/stage_02_beta_2/images/optimized_density.png)\n\n![Selected density at beta 8](evidence/pilot/local/stage_03_beta_8/images/optimized_density.png)\n\nThe raw 0.5 contour is the recommended geometry. Additional smoothing is not automatically an improvement: its mesh-screen failure is reported in the results section.\n\n## 4. Verification")
-report=report.replace("## 7. Nonlinearity:","\n### Actual optimization histories\n\n![Final continuation stage pumping-power history](evidence/pilot/local/stage_03_beta_8/images/pumping_power_history.png)\n\n![Final continuation stage side-flow history](evidence/pilot/local/stage_03_beta_8/images/side_flow_fraction_history.png)\n\nThese figures show the archived final-stage trajectory. The independent KKT audit, rather than the optimizer stop flag alone, establishes local first-order stationarity.\n\n## 7. Nonlinearity:")
-report=report.replace("## 9. Bonus, 10. limitations and AI disclosure","\n### Engineering interpretation\n\nThe nonlinear design is preferred for this operating point: the fitted-wall tests show lower power and higher branch delivery than the original, and the Stokes alternative loses branch delivery under the same nonlinear evaluator. This is evidence for retaining inertia in the design model, not evidence of turbulent performance or a universal optimal junction. Since the fluid area and flow allocation also change, the power saving cannot be attributed to wall curvature alone.\n\n## 9. Bonus, 10. Limitations and AI disclosure")
-report=report.replace("Public deployment and Canvas submission require team action.","The repository is public; deployment and interactive browser acceptance should be checked separately from the numerical evidence. Canvas submission is a team action.")
-(R/'index.md').write_text('# Adjoint-based optimization of a coolant manifold junction\n\n'+report)
-# Convert one-line display math to the block syntax used by Mistune.
-report=re.sub(r'(?m)^\$\$(.+?)\$\$$',r'$$\n\1\n$$',report)
-# Render markdown while preserving math via mistune math plugin.
-md=mistune.create_markdown(escape=False,plugins=['table','math'])
-body=md(report)
-for title,slug in [["1. Summary","summary"],["2. Structure and formulation","formulation"],["3. Governing equations and finite-element analysis","analysis"],["4. Verification","verification"],["5. Sensitivities","sensitivities"],["6. Optimization and KKT","optimization"],["7. Nonlinearity: Stokes versus Navier–Stokes","nonlinear"],["8. Results and numerical qualification","results"],["9. Bonus, 10. Limitations and AI disclosure","limitations"],["11. Reproducibility and references","reproducibility"],["12. Course compliance","compliance"]]:
- body=body.replace(f'<h2>{title}</h2>',f'<h2 id="{slug}">{title}</h2>')
-# remove stray directions to editors in report, retain qualifiers
-header='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Coolant manifold | Project 4</title><link rel="stylesheet" href="assets/site.css"><script>window.MathJax={tex:{inlineMath:[[''''
-fallback_stats=''.join(f'<div class="stat"><strong>{value}</strong>{label}</div>' for value,label in [(f"{h['raw_power_saving_percent']:.2f}%",'Fitted pumping-power saving'),(f"{h['adjoint_serial_speedup']:.2f}×",'Serial adjoint speedup'),(f"{h['kkt_stationarity']:.3e}",'Projected stationarity'),(f"{h['fitted-raw']['side_percent']:.3f}%",'Optimized physical side flow')])
-header=header.replace('__FALLBACK_STATS__',fallback_stats)
-(R/'index.html').write_text(header+body+'</article></main><footer class="wrap">Planar engineering study · Cylindrical interpretation is conceptual, not 3D CFD.</footer><script type="module" src="assets/viewer.js"></script></body></html>')
-,''''
-(R/'index.html').write_text(header+body+'</article></main><footer class="wrap">Planar engineering study · Cylindrical interpretation is conceptual, not 3D CFD.</footer><script type="module" src="assets/viewer.js"></script></body></html>')
-],['\\\\(','\\\\)']],displayMath:[['$','$'],['\\\\[','\\\\]']]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script></head><body><header><div class="wrap"><small>DESIGN OPTIMIZATION · PROJECT 4</small><h1>Adjoint-based optimization of a coolant manifold junction</h1><p>128 design variables · nonlinear finite elements · Re = 50</p><a href="https://designinformaticslab.github.io/DesignOptimization2025/project4.html">Official course assignment ↗</a></div></header><main class="wrap"><section class="stats" id="headline">__FALLBACK_STATS__</section><section class="viewer"><h2>Interactive initial vs. optimized comparison</h2><p id="mode-note">Actual planar FEM geometry extruded by 0.6 mm for display only. Fields are computed on the 0.25 mm fitted mesh; headline metrics use 0.0625 mm.</p><div class="controls"><label>Geometry <select id="mode"><option value="planar">Numerical extrusion</option><option value="cyl">Cylindrical interpretation</option></select></label><label>Color <select id="field"><option value="speed">Velocity magnitude</option><option value="pressure">Pressure</option><option value="geometry">Geometry</option><option value="mesh">FEM mesh</option></select></label><label>Compare to <select id="candidate"><option value="raw">Navier–Stokes</option><option value="stokes">Stokes</option><option value="smoothed">Smoothed (provisional)</option></select></label><button id="zoom-in" type="button" aria-label="Zoom in">+</button><button id="zoom-out" type="button" aria-label="Zoom out">−</button><button id="reset" type="button">Reset view</button></div><div class="views"><div><h3>Original</h3><canvas id="left" aria-label="Original geometry"></canvas><div id="left-metrics"></div></div><div><h3 id="right-title">Navier–Stokes optimized</h3><canvas id="right" aria-label="Optimized geometry"></canvas><div id="right-metrics"></div></div></div><div id="legend"></div><p id="inspect" role="status">Loading numerical geometry. Drag to orbit, wheel or use +/− to zoom, click a numerical element to inspect. Shift-drag pans both cameras.</p><figure id="viewer-fallback" hidden><img src="evidence/pilot/local/stage_03_beta_8/images/junction_magnified.png" alt="Archived original and optimized junction comparison"><figcaption>Archived static comparison. The report and figures remain available when interactive rendering is unavailable.</figcaption></figure><noscript><img src="evidence/pilot/local/stage_03_beta_8/images/junction_magnified.png" alt="Archived original and optimized junction comparison"></noscript><h3>Optimization playback</h3><div class="controls"><button id="play">Play</button><button id="rewind">Reset</button><input id="stage" type="range" min="0" max="3" step="1" value="0" aria-label="Optimization checkpoint"><span id="stage-label"></span></div><img id="stage-image" alt="Actual checkpoint geometry" /><p id="stage-metrics"></p><p>Discrete archived checkpoints, not a continuous time-dependent flow. No fabricated intermediate geometries.</p><noscript>Enable JavaScript for the interactive viewer.</noscript></section><nav class="toc"><a href="#report">Full report ↓</a> · <a href="index.md">Markdown source</a> · <a href="data/results.json">Numerical data</a> · <a href="README.md">Reproduction</a> · <a href="optimization-slide.html">Optimization slide</a></nav><nav class="section-nav" aria-label="Report sections"><a href="#summary">Summary</a><a href="#formulation">Structure and formulation</a><a href="#analysis">Governing equations and finite-element analysis</a><a href="#verification">Verification</a><a href="#sensitivities">Sensitivities</a><a href="#optimization">Optimization and KKT</a><a href="#nonlinear">Nonlinearity: Stokes versus Navier–Stokes</a><a href="#results">Results and numerical qualification</a><a href="#limitations">Limitations and AI disclosure</a><a href="#reproducibility">Reproducibility and references</a><a href="#compliance">Course compliance</a></nav><article id="report">'''
-(R/'index.html').write_text(header+body+'</article></main><footer class="wrap">Planar engineering study · Cylindrical interpretation is conceptual, not 3D CFD.</footer><script type="module" src="assets/viewer.js"></script></body></html>')
+
+if __name__ == "__main__":
+    build()
