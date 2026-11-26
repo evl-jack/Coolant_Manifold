@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Optimization formulation</title>
+  <link rel="stylesheet" href="site.css">
+  <script type="module" src="site.js"></script>
+</head>
+<body>
+  <header class="top"><nav aria-label="Project navigation">
+    <a class="brand" href="index.html">Coolant manifold</a>
+    <div><a href="index.html#viewer">3D viewer</a><a href="optimization.html">Formulation</a><a href="handoff.html">Handoff</a></div>
+  </nav></header>
+  <main><h1 id="fixed-pipe-brinkman-optimization">Fixed-pipe Brinkman optimization</h1>
+
+<p>Minimize pumping power at the prescribed inlet flow while maintaining the side-outlet flow of the unchanged immersed reference.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Role</th>
+  <th>Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Design</td>
+  <td>128 dimensionless transition-cell densities bounded by [0, 1]</td>
+</tr>
+<tr>
+  <td>State</td>
+  <td>P2 velocity and P1 pressure</td>
+</tr>
+<tr>
+  <td>Objective</td>
+  <td>Mechanical port power normalized by the same-stage reference</td>
+</tr>
+<tr>
+  <td>Constraint</td>
+  <td>At least the same side-flow fraction as the unchanged immersed manifold</td>
+</tr>
+<tr>
+  <td>Residual</td>
+  <td>Incompressible nonlinear Navier–Stokes with Brinkman resistance</td>
+</tr>
+<tr>
+  <td>Updates</td>
+  <td>Discrete adjoint and MMA with β = 0, 2, 8 continuation</td>
+</tr>
+</tbody>
+</table>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mo>min</mo><mrow><mn>0</mn><mo>&#x02264;</mo><mi>d</mi><mo>&#x02264;</mo><mn>1</mn></mrow></msub><mfrac><mrow><mi>P</mi><mo stretchy="false">&#x00028;</mo><mi>z</mi><mo stretchy="false">&#x00028;</mo><mi>d</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo></mrow><mrow><msub><mi>P</mi><mn>0</mn></msub></mrow></mfrac><mo>&#x0002C;</mo><mspace width="2em" /><mi>R</mi><mo stretchy="false">&#x00028;</mo><mi>z</mi><mo>&#x0002C;</mo><mi>d</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002C;</mo><mspace width="2em" /><mo stretchy="false">&#x00028;</mo><msub><mi>&#x003B7;</mi><mn>0</mn></msub><mo>&#x02212;</mo><mi>&#x003B7;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mn>0.001</mn><mo>&#x02264;</mo><mn>0</mn><mo>&#x0002E;</mo></mrow></math>
+
+<ol class="loop" aria-label="Optimization loop in execution order">
+<li>Cell densities</li>
+<li>Anchored Helmholtz filter</li>
+<li>Heaviside projection</li>
+<li>Rational Brinkman resistance</li>
+<li>Nonlinear FEM by Newton</li>
+<li>Power and side-flow fraction</li>
+<li>Discrete adjoint sensitivities</li>
+<li>MMA updates cell densities</li>
+</ol>
+
+<p>The updated densities return to the filter. The main pipe and outlet collar retain their original shape throughout the optimization.</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x003B1;</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B3;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><msub><mi>&#x003B1;</mi><mrow><mo>max</mo></mrow></msub><mfrac><mrow><mi>q</mi><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mi>&#x003B3;</mi><mo stretchy="false">&#x00029;</mo></mrow><mrow><mi>q</mi><mo>&#x0002B;</mo><mi>&#x003B3;</mi></mrow></mfrac><mo>&#x0002C;</mo><mspace width="2em" /><msubsup><mi>R</mi><mi>z</mi><mi>T</mi></msubsup><msub><mi>&#x003BB;</mi><mi>J</mi></msub><mo>&#x0003D;</mo><msubsup><mi>J</mi><mi>z</mi><mi>T</mi></msubsup><mo>&#x0002E;</mo></mrow></math>
+
+<p><a href="https://designinformaticslab.github.io/DesignOptimization2025/project4.html">Official Project 4 assignment</a></p>
+</main>
+  <footer><a href="https://designinformaticslab.github.io/DesignOptimization2025/project4.html">ASU Design Optimization · Project 4</a></footer>
+</body>
+</html>

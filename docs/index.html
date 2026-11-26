@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fixed-pipe coolant manifold</title>
+  <link rel="stylesheet" href="site.css">
+  <script type="module" src="site.js"></script>
+</head>
+<body>
+  <header class="top"><nav aria-label="Project navigation">
+    <a class="brand" href="index.html">Coolant manifold</a>
+    <div><a href="index.html#viewer">3D viewer</a><a href="optimization.html">Formulation</a><a href="handoff.html">Handoff</a></div>
+  </nav></header>
+  <main><div class="eyebrow">ASU Design Optimization · Project 4</div>
+
+<h1 id="fixed-pipe-coolant-manifold-optimization">Fixed-pipe coolant manifold optimization</h1>
+
+<p>Reshaping the side-outlet transition reduced mechanical pumping power by <strong><span id="headline-power">…</span></strong> in the preliminary fitted-wall comparison. The side-outlet share rose from <strong><span id="headline-start">…</span> to <span id="headline-end">…</span></strong>. Both measurements use the same target mesh spacing. The raw reconstruction is the primary design candidate.</p>
+
+<div class="summary">
+  <article><strong id="headline-area">…</strong><p>Fluid area of the raw reconstruction</p></article>
+  <article><strong id="headline-turn">…</strong><p>Maximum wall turn of the raw reconstruction</p></article>
+</div>
+
+<h2 id="interactive-3d-comparison">Interactive 3D comparison</h2>
+
+<section id="viewer" aria-label="Initial and optimized manifold comparison">
+  <fieldset>
+    <legend>Comparison controls</legend>
+    <label>Geometry <select id="mode"><option value="planar">Numerical extrusion</option><option value="cylinder">Cylindrical interpretation</option></select></label>
+    <label>Display <select id="field"><option>Geometry</option><option>Velocity magnitude</option><option>Pressure</option></select></label>
+    <label><input type="checkbox" id="mesh"> FEM mesh</label>
+    <label>Checkpoint <input id="checkpoint" type="range" min="0" max="0" step="1"></label>
+    <button type="button" id="play">Play checkpoints</button>
+    <button type="button" id="reset">Reset cameras</button>
+    <button type="button" data-zoom="1.2" aria-label="Zoom in on both views">+</button>
+    <button type="button" data-zoom="0.83333" aria-label="Zoom out on both views">−</button>
+  </fieldset>
+  <p id="viewer-status" class="muted" role="status">Loading geometry…</p>
+  <div id="legend" class="legend" hidden><div class="legend-labels"></div><div class="legend-bar"></div></div>
+  <div class="pair">
+    <article class="view-panel"><h3>Original</h3><canvas tabindex="0" aria-label="Original manifold. Arrow keys orbit. Shift and arrow keys pan."></canvas><p class="view-metrics"></p><p class="inspect"></p></article>
+    <article class="view-panel"><h3>Optimized</h3><canvas tabindex="0" aria-label="Optimized manifold. Arrow keys orbit. Shift and arrow keys pan."></canvas><p class="view-metrics"></p><p class="inspect"></p></article>
+  </div>
+</section>
+
+<p>Geometry mode extrudes the exact planar reconstruction by a display depth of 0.8 mm. The cylindrical interpretation wraps the measured branch half-width about the outlet axis and joins it to a 4 mm diameter main pipe. The cylindrical view represents a possible engineering geometry. Flow results come from planar simulations. Field mode shows the archived immersed β = 8 analysis plane, including the penalized part of the domain. The two views share a field scale and camera. Playback steps through actual saved continuation endpoints.</p>
+
+<h2 id="engineering-problem-and-formulation">Engineering problem and formulation</h2>
+
+<p>The main channel and the side branch deliver coolant to different locations. For a prescribed inlet flow, decreasing pump power while preserving side delivery can reduce operating energy. Opening the branch transition changes both local losses and the flow allocation, so the side-flow requirement belongs in the optimization.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Region</th>
+  <th>Bounds in mm</th>
+  <th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Main pipe</td>
+  <td>[0, 20] × [0, 4]</td>
+  <td>Fixed fluid</td>
+</tr>
+<tr>
+  <td>Outlet collar</td>
+  <td>[9.5, 10.5] × [6, 7]</td>
+  <td>Fixed fluid</td>
+</tr>
+<tr>
+  <td>Transition</td>
+  <td>[8, 12] × [4, 6]</td>
+  <td>Designable</td>
+</tr>
+</tbody>
+</table>
+
+<p>The transition is divided into 128 independent cells on a 0.25 mm grid. A dimensionless raw fluid indicator is bounded between zero (solid) and one (fluid). Fixed parts retain their original indicators. Let Qᵢ and Qₛ be the positive inlet and outward side flux per unit depth. The reference is the unchanged <strong>immersed</strong> T-junction at the same continuation stage. Its side fraction sets the allowable minimum.</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mo>min</mo><mrow><mn>0</mn><mo>&#x02264;</mo><mi>d</mi><mo>&#x02264;</mo><mn>1</mn></mrow></msub><mi>f</mi><mo>&#x0003D;</mo><mfrac><mrow><mi>P</mi><mo stretchy="false">&#x00028;</mo><mi>z</mi><mo stretchy="false">&#x00028;</mo><mi>d</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo></mrow><mrow><msub><mi>P</mi><mn>0</mn></msub></mrow></mfrac><mo>&#x0002C;</mo><mspace width="2em" /><mi>R</mi><mo stretchy="false">&#x00028;</mo><mi>z</mi><mo>&#x0002C;</mo><mi>d</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002C;</mo><mspace width="2em" /><mi>g</mi><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>&#x003B7;</mi><mn>0</mn></msub><mo>&#x02212;</mo><msub><mi>Q</mi><mi>s</mi></msub><mo>&#x0002F;</mo><msub><mi>Q</mi><mi>i</mi></msub></mrow><mrow><mn>0.001</mn></mrow></mfrac><mo>&#x02264;</mo><mn>0</mn><mo>&#x0002E;</mo></mrow></math>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>P</mi><mo>&#x0003D;</mo><mo>&#x02212;</mo><munder><mo>&#x02211;</mo><mrow><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mrow></mrow></munder><msub><mo>&#x0222B;</mo><mi>&#x00393;</mi></msub><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mi>p</mi><mo>&#x0002B;</mo><mfrac><mrow><mi>&#x003C1;</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo stretchy="false">&#x0007C;</mo><mi mathvariant="bold">u</mi><msup><mo stretchy="false">&#x0007C;</mo><mn>2</mn></msup><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow><mi mathvariant="bold">u</mi><mi>&#x000B7;</mi><mi mathvariant="bold">n</mi><mspace width="0.167em" /><mi>d</mi><mi>s</mi><mo>&#x0002C;</mo><mspace width="1em" /><msub><mi>R</mi><mrow><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">f</mi></mrow></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mi>P</mi></mrow><mrow><msubsup><mi>Q</mi><mi>i</mi><mn>2</mn></msubsup></mrow></mfrac><mo>&#x0002E;</mo></mrow></math>
+
+<p>The normal is outward and inlet flux has the opposite orientation. Power has units W/m of out-of-plane depth. Effective resistance, area and turning angle are reported diagnostics. The pilot has one PDE-based inequality. The course guidance for team-proposed projects specifies two PDE-based constraints. The posted flow-manifold option and the pilot's implemented scope are linked below for review. <a href="https://designinformaticslab.github.io/DesignOptimization2025/project4.html">Official Project 4 assignment</a></p>
+
+<h2 id="governing-physics-and-fem">Governing physics and FEM</h2>
+
+<p>The planar model assumes steady, incompressible Newtonian flow with constant viscosity (0.001002 Pa·s) and density (998.2 kg/m³). The inlet Reynolds number based on mean speed and the 4 mm channel height is 50. The inlet has prescribed parabolic velocity. Walls have no slip. Both outlets use zero natural traction for the symmetric Newtonian stress.</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x003C1;</mi><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">u</mi><mi>&#x000B7;</mi><mo>&#x02207;</mo><mo stretchy="false">&#x00029;</mo><mi mathvariant="bold">u</mi><mo>&#x02212;</mo><mi>&#x003BC;</mi><msup><mo>&#x02207;</mo><mn>2</mn></msup><mi mathvariant="bold">u</mi><mo>&#x0002B;</mo><mo>&#x02207;</mo><mi>p</mi><mo>&#x0002B;</mo><mi>&#x003B1;</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B3;</mi><mo stretchy="false">&#x00029;</mo><mi mathvariant="bold">u</mi><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002C;</mo><mspace width="2em" /><mo>&#x02207;</mo><mi>&#x000B7;</mi><mi mathvariant="bold">u</mi><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002E;</mo></mrow></math>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mo>&#x0222B;</mo><mi>&#x003A9;</mi></msub><mrow><mo stretchy="true" fence="true" form="prefix">[</mo><mn>2</mn><mi>&#x003BC;</mi><mi>&#x003B5;</mi><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">u</mi><mo stretchy="false">&#x00029;</mo><mi>:</mi><mi>&#x003B5;</mi><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">v</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mi>&#x003C1;</mi><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">u</mi><mi>&#x000B7;</mi><mo>&#x02207;</mo><mo stretchy="false">&#x00029;</mo><mi mathvariant="bold">u</mi><mo stretchy="false">&#x00029;</mo><mi>&#x000B7;</mi><mi mathvariant="bold">v</mi><mo>&#x02212;</mo><mi>p</mi><mo>&#x02207;</mo><mi>&#x000B7;</mi><mi mathvariant="bold">v</mi><mo>&#x02212;</mo><msub><mi>q</mi><mi>t</mi></msub><mo>&#x02207;</mo><mi>&#x000B7;</mi><mi mathvariant="bold">u</mi><mo>&#x0002B;</mo><mi>&#x003B1;</mi><mi mathvariant="bold">u</mi><mi>&#x000B7;</mi><mi mathvariant="bold">v</mi><mo stretchy="true" fence="true" form="postfix">]</mo></mrow><mi>d</mi><mi>&#x003A9;</mi><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002E;</mo></mrow></math>
+
+<p>Quadratic velocity and linear pressure form a Taylor–Hood pair on triangular elements. The immersed pilot uses a structured fitted envelope with spacing at most 0.25 mm. Its design-dependent resistance is transferred cellwise. Newton solves the mixed residual with both derivatives of convection, the transported-velocity and transporting-velocity terms. For browser rendering, each scan of the β = 8 field evaluates quadratic velocity and linear pressure from the solver's local degrees of freedom. The side-flow constraint integrates the velocity trace at the port.</p>
+
+<h2 id="numerical-verification-ladder">Numerical verification ladder</h2>
+
+<p>The ladder below comes from the earlier team FEM report draft. It documents verification of common operators. The fixed-pipe audit and mesh studies have separate slots below.</p>
+
+<div class="table-scroll" markdown="1">
+
+| Check | Reference or gate | Measured result |
+|---|---|---|
+| Element basis and integration | Partition of unity, exact polynomial moments | Defect 0, quadrature moment error 1.11 × 10⁻¹⁶ |
+| Exact planar Poiseuille solution | Dimensionless flux 1 | 0.9999999999999918, relative error 8.22 × 10⁻¹⁵ |
+| Rotation invariance | Rotated Poiseuille flux 1 | 0.9999999999999974, relative error 2.55 × 10⁻¹⁵ |
+| Global conservation | Net flux imbalance 0 | Relative imbalance 8.22 × 10⁻¹⁵ |
+| Manufactured mesh convergence | Velocity order ≥ 2.6 and pressure order ≥ 1.7 | Last velocity orders 3.128 and 3.097, pressure orders 3.226 and 3.422 |
+| Nonlinear residual and tangent | Manufactured nonlinear field and FD tangent | Velocity L² error 0.0017012, pressure L² error 0.0010254, tangent relative error 1.076 × 10⁻¹¹ |
+| Uniform Brinkman duct | Exact nondimensional flux 0.29057005 | Computed 0.29056943, relative error 2.153 × 10⁻⁶ |
+| Layered Brinkman duct | Exact nondimensional flux 0.17337432 | Computed 0.17337450, relative error 1.019 × 10⁻⁶ |
+
+</div>
+
+<div class="evidence" data-evidence="immersedMesh"><strong>Immersed mesh refinement</strong><p>Expected fields: spacing, element count, power, branch share and changes under refinement.</p></div>
+
+<div class="evidence" data-evidence="fittedMesh"><strong>Fitted-wall mesh refinement</strong><p>Expected fields: matched fixed contours, refinement levels, power and side-flow uncertainty.</p></div>
+
+<h2 id="discrete-adjoint-sensitivities">Discrete adjoint sensitivities</h2>
+
+<p>For a scalar response J at a converged state, differentiate the discrete residual and eliminate the state sensitivity with a transpose solve.</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>R</mi><mi>z</mi></msub><msub><mi>z</mi><mi>d</mi></msub><mo>&#x0002B;</mo><msub><mi>R</mi><mi>d</mi></msub><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002C;</mo><mspace width="2em" /><msubsup><mi>R</mi><mi>z</mi><mi>T</mi></msubsup><msub><mi>&#x003BB;</mi><mi>J</mi></msub><mo>&#x0003D;</mo><msubsup><mi>J</mi><mi>z</mi><mi>T</mi></msubsup><mo>&#x0002C;</mo><mspace width="2em" /><mfrac><mrow><mi>d</mi><mi>J</mi></mrow><mrow><mi>d</mi><mi>d</mi></mrow></mfrac><mo>&#x0003D;</mo><msub><mi>J</mi><mi>d</mi></msub><mo>&#x02212;</mo><msubsup><mi>&#x003BB;</mi><mi>J</mi><mi>T</mi></msubsup><msub><mi>R</mi><mi>d</mi></msub><mo>&#x0002E;</mo></mrow></math>
+
+<p>For the power response f, the fixed divisor gives f<em>z = P</em>z/P₀. For the constraint, differentiate both outlet and inlet flux before applying the scale and sign.</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x003B4;</mi><mi>P</mi><mo>&#x0003D;</mo><mo>&#x02212;</mo><munder><mo>&#x02211;</mo><mrow><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">s</mi></mrow></mrow></munder><msub><mo>&#x0222B;</mo><mi>&#x00393;</mi></msub><mrow><mo stretchy="true" fence="true" form="prefix">[</mo><mo stretchy="false">&#x00028;</mo><mi>&#x003B4;</mi><mi>p</mi><mo>&#x0002B;</mo><mi>&#x003C1;</mi><mspace width="0.167em" /><mi mathvariant="bold">u</mi><mi>&#x000B7;</mi><mi>&#x003B4;</mi><mi mathvariant="bold">u</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">u</mi><mi>&#x000B7;</mi><mi mathvariant="bold">n</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mo stretchy="false">&#x00028;</mo><mi>p</mi><mo>&#x0002B;</mo><mi>&#x003C1;</mi><mo stretchy="false">&#x0007C;</mo><mi mathvariant="bold">u</mi><msup><mo stretchy="false">&#x0007C;</mo><mn>2</mn></msup><mo>&#x0002F;</mo><mn>2</mn><mo stretchy="false">&#x00029;</mo><mi>&#x003B4;</mi><mi mathvariant="bold">u</mi><mi>&#x000B7;</mi><mi mathvariant="bold">n</mi><mo stretchy="true" fence="true" form="postfix">]</mo></mrow><mi>d</mi><mi>s</mi><mo>&#x0002C;</mo><mspace width="1em" /><msub><mi>g</mi><mi>z</mi></msub><mo>&#x0003D;</mo><mo>&#x02212;</mo><mfrac><mrow><msub><mi>Q</mi><mrow><mi>s</mi><mo>&#x0002C;</mo><mi>z</mi></mrow></msub><mo>&#x02212;</mo><mi>&#x003B7;</mi><msub><mi>Q</mi><mrow><mi>i</mi><mo>&#x0002C;</mo><mi>z</mi></mrow></msub></mrow><mrow><mn>0.001</mn><msub><mi>Q</mi><mi>i</mi></msub></mrow></mfrac><mo>&#x0002E;</mo></mrow></math>
+
+<p>These responses depend on d through the state. The design derivative of the residual passes through the Helmholtz filter, projection, Brinkman law and momentum assembly. If A is the free-cell Helmholtz matrix and M is its mass matrix, the filter action is A⁻¹M and the reverse action is MᵀA⁻ᵀ. The fixed-value anchors contribute only to the forward right-hand side.</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x003B3;</mi><mo>&#x0003D;</mo><mfrac><mrow><mi>tanh</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B2;</mi><mi>&#x003B8;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mi>tanh</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B2;</mi><mo stretchy="false">&#x00028;</mo><mover><mi>d</mi><mo stretchy="false">&#x0007E;</mo></mover><mo>&#x02212;</mo><mi>&#x003B8;</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo></mrow><mrow><mi>tanh</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B2;</mi><mi>&#x003B8;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mi>tanh</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B2;</mi><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mi>&#x003B8;</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo></mrow></mfrac><mo>&#x0002C;</mo><mspace width="2em" /><mi>&#x003B1;</mi><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>&#x003B1;</mi><mrow><mo>max</mo></mrow></msub><mi>q</mi><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mi>&#x003B3;</mi><mo stretchy="false">&#x00029;</mo></mrow><mrow><mi>q</mi><mo>&#x0002B;</mo><mi>&#x003B3;</mi></mrow></mfrac><mo>&#x0002C;</mo><mspace width="2em" /><msub><mi>&#x003B1;</mi><mi>&#x003B3;</mi></msub><mo>&#x0003D;</mo><mo>&#x02212;</mo><mfrac><mrow><msub><mi>&#x003B1;</mi><mrow><mo>max</mo></mrow></msub><mi>q</mi><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x0002B;</mo><mi>q</mi><mo stretchy="false">&#x00029;</mo></mrow><mrow><mo stretchy="false">&#x00028;</mo><mi>q</mi><mo>&#x0002B;</mo><mi>&#x003B3;</mi><msup><mo stretchy="false">&#x00029;</mo><mn>2</mn></msup></mrow></mfrac><mo>&#x0002E;</mo></mrow></math>
+
+<p>At β = 0 the projection is the identity. The filter radius is 0.5 mm. The continuation sequence uses β = 0, 2 and 8, with q = 0.1 and maximum resistance 10⁵ kg/(m³·s). Reconstruction thresholds the projected indicator at 0.5.</p>
+
+<p>At interior designs, compare each directional derivative with a central difference and measure the first-order Taylor remainder over step sizes. At active bounds use feasible directions and document which difference formula applies. One transpose solve per response gives sensitivities for all design variables. A full two-sided finite-difference gradient would require 256 perturbed state analyses for 128 variables, subject to bound feasibility. Measured timing needs a matched run.</p>
+
+<figure id="smoke-figure" hidden><img loading="lazy" alt="Taylor remainders for the local fixed-pipe smoke fixture"><figcaption>Local gradient smoke fixture. The independent release has its own acceptance record.</figcaption></figure>
+
+<div class="evidence" data-evidence="finalTaylor"><strong>Final adjoint Taylor and finite-difference tests</strong><p>Expected rows: design and direction, response, steps, adjoint derivative, finite difference, error and observed order.</p></div>
+
+<div class="evidence" data-evidence="cost"><strong>Measured adjoint versus finite-difference cost</strong><p>Expected rows: solve counts, assembly and factorization cost, wall time and speedup on matched hardware.</p></div>
+
+<div class="evidence" data-evidence="scaling"><strong>Computational scaling</strong><p>Expected rows: degrees of freedom, design dimension, method, time and memory by mesh.</p></div>
+
+<h2 id="mma-convergence-and-kkt-conditions">MMA convergence and KKT conditions</h2>
+
+<p>MMA builds convex moving-asymptote subproblems from the normalized power and the scaled flow constraint. The first stage starts from the original mask. Later stages warm-start from the preceding selected design. The selected checkpoint is the best feasible evaluated point identified by the pilot. <a href="optimization.html">Presentation-ready optimization formulation</a></p>
+
+<div id="history"></div>
+
+<div class="table-scroll" id="checkpoints"></div>
+
+<p>For an inequality multiplier λ and bound multipliers μ₋ and μ₊, stationarity requires ∇f + λ∇g − μ₋ + μ₊ = 0 with primal and dual feasibility and complementary slackness. A positive λ quantifies how much the normalized objective can decrease per unit relaxation of the scaled flow inequality. The endpoint replay below checks the archived immersed endpoint and its bound stationarity. The independent audit and fitted-wall refinement have separate acceptance records.</p>
+
+<div class="table-scroll" id="endpoint-kkt"></div>
+
+<div class="evidence" data-evidence="independentKkt"><strong>Independent KKT multiplier and stationarity audit</strong><p>Expected fields: binding constraints, scaled multipliers, feasibility and complementarity residuals, and engineering interpretation.</p></div>
+
+<h2 id="nonlinear-component-stokes-versus-navierstokes">Nonlinear component · Stokes versus Navier–Stokes</h2>
+
+<p>The N2 comparison removes the convective term from the governing momentum residual to obtain Stokes flow. Use the same design space and inlet throughput and document the baseline and normalization in each solve. Evaluate each selected design under both equations to distinguish the effect of changing the geometry from the effect of changing the flow model.</p>
+
+<div class="evidence" data-evidence="stokes"><strong>Fixed-pipe Stokes optimization and cross-evaluation</strong><p>Expected rows: original, Stokes-selected and Navier–Stokes-selected geometries, with power, side share and constraint status under each model.</p></div>
+
+<h2 id="fitted-wall-design-comparison">Fitted-wall design comparison</h2>
+
+<figure><img src="assets/three-panel.png" loading="lazy" alt="Original sharp junction, raw reconstructed junction and smoothed junction"><figcaption>Archived comparison of the three fitted contours. The raw β = 8 reconstruction is the primary candidate.</figcaption></figure>
+
+<div class="table-scroll" id="fitted-table"></div>
+
+<p>The fitted-wall study independently remeshes the three physical fluid regions at the same target spacing. The smoothing study used 10 Laplacian iterations at strength 0.5 and retained the fixed pipe and collar. Smoothness and area changed along with the outlet split. The raw shape achieved the lower power of the two optimized contours at this resolution. The fitted side-flow fraction is a separate measurement from the immersed constraint shown in the viewer.</p>
+
+<h2 id="bonus-evidence">Bonus evidence</h2>
+
+<p>The nonlinear manufactured-solution test and implicit adjoint support the N2 investigation. Final-model gradient acceptance remains in the audit slot above. The topology parameterization permits fluid or solid cells within the transition and uses filtering and projection to control small features. A controlled comparison against a restricted fixed-topology optimization is still needed for the topology bonus. The fixed-pipe pilot did not investigate transient adjoints, surrogate optimization or design under uncertainty.</p>
+
+<h2 id="limitations-and-ai-use">Limitations and AI use</h2>
+
+<p>This study represents a planar laminar hydraulic model. The cylindrical visualization does not provide experimental or three-dimensional flow validation. No conclusions about heat removal, turbulence, real outlet system curves or manufacturing tolerances follow from the pilot. A finite Brinkman penalty allows residual flow in nominal solids. The fitted comparison remains preliminary until paired refinement quantifies the numerical uncertainty.</p>
+
+<p>Coding agents contributed to the FEM, adjoint, MMA implementation, data exports, viewer and report. The team report draft records independent checks of analytical fluxes, manufactured solutions and quadrature. The exploratory SST setup exposed a missing wall-distance method in generated OpenFOAM input when the initialization log was checked. The team still needs to confirm the attribution and document a verified defect and regression check from the graded FEM or adjoint path.</p>
+
+<h2 id="reproduction-and-references">Reproduction and references</h2>
+
+<ul>
+<li><a href="handoff.html">Build, numerical input manifest, Pages deployment and submission checklist</a></li>
+<li><a href="assets/results.json">Machine-readable numerical results</a></li>
+<li><a href="https://designinformaticslab.github.io/DesignOptimization2025/project4.html">Official course assignment</a></li>
+<li><a href="https://doi.org/10.1002/nme.1620240207">Svanberg, The method of moving asymptotes</a></li>
+<li><a href="https://doi.org/10.1002/fld.426">Borrvall and Petersson, Topology optimization of fluids in Stokes flow</a></li>
+</ul>
+</main>
+  <footer><a href="https://designinformaticslab.github.io/DesignOptimization2025/project4.html">ASU Design Optimization · Project 4</a>   ·   <a href="https://github.com/evl-jack/Coolant_Manifold/tree/main/project4-fixed-pipe">Solver and report source</a></footer>
+</body>
+</html>

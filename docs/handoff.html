@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project handoff</title>
+  <link rel="stylesheet" href="site.css">
+  <script type="module" src="site.js"></script>
+</head>
+<body>
+  <header class="top"><nav aria-label="Project navigation">
+    <a class="brand" href="index.html">Coolant manifold</a>
+    <div><a href="index.html#viewer">3D viewer</a><a href="optimization.html">Formulation</a><a href="handoff.html">Handoff</a></div>
+  </nav></header>
+  <main><h1 id="project-4-website-handoff">Project 4 website handoff</h1>
+
+<h2 id="build-and-preview">Build and preview</h2>
+
+<p>From the package or project root with Python 3.12 or later, install the build dependencies and generate the report.</p>
+
+<pre><code>python -m pip install -r manifold_dashboard/fixed_pipe_site/requirements-build.txt
+python manifold_dashboard/fixed_pipe_site/build.py
+python -m http.server 8000 --directory manifold_dashboard/fixed_pipe_site/dist
+</code></pre>
+
+<p>Open <a href="http://localhost:8000/">http://localhost:8000/</a>. The build produces HTML, MathML, field and geometry assets, playback data and the numerical manifest. WebGL and browser-native MathML require no runtime dependencies from a CDN.</p>
+
+<p>The packaged <strong>dist/offline-preview.html</strong> also opens directly from disk. Keep it alongside <strong>dist/assets</strong> for images and links. Run the build with <strong>--offline-preview</strong> to regenerate it.</p>
+
+<h2 id="sources-used">Sources used</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Source</th>
+  <th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Official ASU Project 4 assignment</td>
+  <td>Report, viewer, rubric and submission requirements</td>
+</tr>
+<tr>
+  <td>Pasted text(8).txt</td>
+  <td>Fixed-pipe model and deliverable scope</td>
+</tr>
+<tr>
+  <td>output/fixed<em>pipe</em>pilot_local/configuration.json and summary.json</td>
+  <td>Geometry bounds, Reynolds number, design count, MMA stages</td>
+</tr>
+<tr>
+  <td>output/fixed<em>pipe</em>pilot_local/mesh.npz and stage geometry and field archives</td>
+  <td>Numerical extrusion, branch widths, original and selected Taylor–Hood states, checkpoint playback</td>
+</tr>
+<tr>
+  <td>output/fixed<em>pipe</em>pilot_local/progress.jsonl and metrics.json</td>
+  <td>MMA history, objective, side-flow limit and performance</td>
+</tr>
+<tr>
+  <td>output/fixed<em>pipe</em>fitted<em>smoothing/results.json and three</em>panel.png</td>
+  <td>Preliminary fitted-wall comparisons</td>
+</tr>
+<tr>
+  <td>output/fixed<em>pipe</em>kkt<em>endpoint/fixed</em>pipe_kkt.json</td>
+  <td>Local β = 8 endpoint replay</td>
+</tr>
+<tr>
+  <td>output/fixed<em>pipe</em>independent<em>verification/adjoint</em>taylor_remainders.png</td>
+  <td>Local gradient smoke fixture</td>
+</tr>
+<tr>
+  <td>Project4<em>Report</em>Draft.md</td>
+  <td>Common FEM verification and reported AI-use evidence</td>
+</tr>
+<tr>
+  <td>project4<em>fem/fem.py, junction.py, project43</em>power.py and project43_topology modules</td>
+  <td>Interpolation, state indexing, flux and power formulas, density pipeline</td>
+</tr>
+</tbody>
+</table>
+
+<p>Downloads for the linked Fixed<em>Pipe</em>Pilot.zip and Project4<em>Report</em>Package.zip could not complete. The build uses the pilot files already in the workspace and the report draft read directly. The workspace comparison PNG matches the linked filename and size. The earlier dashboard uses a different parameterization.</p>
+
+<h2 id="insert-released-numerical-evidence">Insert released numerical evidence</h2>
+
+<p>Place a reviewed JSON object at <strong>output/fixed<em>pipe</em>site_release.json</strong>, or in the directory passed to <strong>--evidence</strong>. Each key below maps to a record with <strong>source</strong>, <strong>experiment</strong>, <strong>status</strong>, <strong>settings</strong>, <strong>columns</strong> and <strong>rows</strong>. Put units in the column headings and use null for unavailable numbers. Table rows must match the column count. Optional <strong>figure</strong> is a raster filename beside the release JSON. <strong>figureAlt</strong> describes that figure.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Key</th>
+  <th>Expected numerical source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>finalTaylor</td>
+  <td>Both response gradients, finite differences and Taylor orders for feasible perturbations</td>
+</tr>
+<tr>
+  <td>cost</td>
+  <td>Matched hardware, assembly, factorization, solve counts and wall time</td>
+</tr>
+<tr>
+  <td>scaling</td>
+  <td>State size, design dimension, wall time and memory by mesh</td>
+</tr>
+<tr>
+  <td>independentKkt</td>
+  <td>Endpoint ID, active set, scaled multipliers and residuals</td>
+</tr>
+<tr>
+  <td>immersedMesh</td>
+  <td>Mesh settings and paired power and branch-share changes</td>
+</tr>
+<tr>
+  <td>fittedMesh</td>
+  <td>Fixed contours, paired meshes, power and flow uncertainty</td>
+</tr>
+<tr>
+  <td>stokes</td>
+  <td>Independently optimized Stokes design and matched nonlinear cross-evaluation</td>
+</tr>
+</tbody>
+</table>
+
+<p>Run the build again and review the tables, figure links and statuses. Retain the original numerical evidence and its experiment identifiers.</p>
+
+<h2 id="numerical-reproduction">Numerical reproduction</h2>
+
+<p>The site build reproduces the presentation from archived inputs. The pilot optimization can be rerun into a new output directory using the supplied solver source and compatible Python packages.</p>
+
+<pre><code>python -m pip install -r manifold_dashboard/fixed_pipe_site/requirements-numerical.txt
+python -m project4_fem.project43_topology.fixed_pipe_pilot output/fixed_pipe_reproduction --local
+</code></pre>
+
+<p>The archived smoothing driver reads and writes fixed relative paths. Use a separate working copy if repeating the fitted calculation so that the supplied result remains intact.</p>
+
+<p>Complete numerical reproduction additionally needs the paired fitted-wall, mesh and independent verification release inputs.</p>
+
+<h2 id="github-pages-and-canvas">GitHub Pages and Canvas</h2>
+
+<ol>
+<li>Use a clean public submission repository and review the source and evidence to be published, along with team attribution.</li>
+<li>Copy <strong>pages-workflow.yml</strong> into <strong>.github/workflows/pages.yml</strong>. In the repository, select <strong>Settings → Pages → GitHub Actions</strong>.</li>
+<li>Commit and push the reviewed package, then run <strong>Project 4 Pages</strong> for the grading revision.</li>
+<li>Open the published URL in a private window. Check it at desktop and phone widths, including viewer controls, numerical assets, equations and links.</li>
+<li>Submit the public repository and Pages links on Canvas. Retain the grading commit hash.</li>
+</ol>
+
+<h2 id="assignment-checklist">Assignment checklist</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Requirement</th>
+  <th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Headline results and comparison at top</td>
+  <td>Implemented from preliminary fitted-wall data</td>
+</tr>
+<tr>
+  <td>Motivation, formula, bounds and source of limits</td>
+  <td>Implemented for the pilot, which has one PDE-based inequality</td>
+</tr>
+<tr>
+  <td>Governing PDE, FEM, mesh, loads and assumptions</td>
+  <td>Implemented</td>
+</tr>
+<tr>
+  <td>At least six verification rungs</td>
+  <td>Historical common FEM measurements included</td>
+</tr>
+<tr>
+  <td>Adjoint, finite differences and Taylor curves</td>
+  <td>Derivations and local fixture included. Independent final evidence pending</td>
+</tr>
+<tr>
+  <td>Measured adjoint cost and scaling</td>
+  <td>Awaiting released data</td>
+</tr>
+<tr>
+  <td>MMA history, active constraints and multipliers</td>
+  <td>Archived history and local endpoint replay included. Independent release pending</td>
+</tr>
+<tr>
+  <td>Stokes versus nonlinear optimum</td>
+  <td>Awaiting fixed-pipe Stokes release</td>
+</tr>
+<tr>
+  <td>Objective and all constraints in results table</td>
+  <td>Immersed and fitted results included with distinct labels</td>
+</tr>
+<tr>
+  <td>Bonus evidence</td>
+  <td>N2 and topology scope documented</td>
+</tr>
+<tr>
+  <td>Limitations and AI-use disclosure</td>
+  <td>Draft included. Team attribution and main solver regression example pending</td>
+</tr>
+<tr>
+  <td>Linked cameras and true extrusion</td>
+  <td>Implemented, including 0.8 mm display depth</td>
+</tr>
+<tr>
+  <td>Cylindrical engineering interpretation</td>
+  <td>Implemented from measured transition widths</td>
+</tr>
+<tr>
+  <td>Fields, color scales and element interpolation</td>
+  <td>Implemented for β = 8 immersed velocity and pressure</td>
+</tr>
+<tr>
+  <td>Animation and inspection</td>
+  <td>Saved checkpoints and element hover/click implemented</td>
+</tr>
+<tr>
+  <td>Objective and constraint pass/fail</td>
+  <td>Implemented for both views</td>
+</tr>
+<tr>
+  <td>JSON, mobile responsiveness and loading</td>
+  <td>Responsive views and lazy field loading</td>
+</tr>
+<tr>
+  <td>Markdown, equations and assignment link</td>
+  <td>Included, math compiled to native MathML</td>
+</tr>
+<tr>
+  <td>Source code and one command to regenerate results.json</td>
+  <td>Archived-input build and standalone pilot entry point. End-to-end CFD reproduction awaits evidence</td>
+</tr>
+<tr>
+  <td>Public repository, deployed site, private browser, Canvas and grading commit</td>
+  <td>Requires public release and course submission</td>
+</tr>
+</tbody>
+</table>
+</main>
+  <footer><a href="https://designinformaticslab.github.io/DesignOptimization2025/project4.html">ASU Design Optimization · Project 4</a>   ·   <a href="https://github.com/evl-jack/Coolant_Manifold/tree/main/project4-fixed-pipe">Solver and report source</a></footer>
+</body>
+</html>
