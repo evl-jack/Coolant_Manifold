@@ -257,7 +257,3 @@ The source snapshots, exact inputs, archived Slurm jobs and numerical outputs ar
 - [Nonlinear investigation README](evidence/nonlinear/README.md) and [Sol launcher](evidence/nonlinear/launch_remaining_sol.sh)
 - [Numerical data](data/results.json), [source map](SOURCE_MAP.md), [remaining gaps](MISSING_DATA.md)
 - Borrvall and Petersson (2003), *Topology optimization of fluids in Stokes flow*, IJNMF 41, 77–107.
-
-## 12. Course compliance
-
-The report provides the formulation, historical and final verification evidence, sensitivities, measured cost, KKT and the nonlinear comparison. Remaining qualifications: one independent PDE inequality; no comparable fixed-topology bonus control; team confirmation of independent derivations and a graded-solver bug; full end-to-end numerical reproduction not rerun. The repository is public; deployment and interactive browser acceptance should be checked separately from the numerical evidence. Canvas submission is a team action.
