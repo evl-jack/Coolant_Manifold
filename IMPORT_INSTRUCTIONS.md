@@ -1,0 +1,3 @@
+# Website agent: import, don't rebuild
+
+All available report information is already populated in `index.md` and `index.html`. The site is deployable as a plain static GitHub Pages site. Extract the ZIP into the repository root, preserving all relative paths and `.nojekyll`. Publish from the correct branch and root. Read `FINAL_ACCEPTANCE.md` for remaining genuine evidence gaps; do not invent answers or conduct new numerical experiments. Test the public URL in a private browser. Fix only website deployment or viewer issues. Do not replace numerical values with guesses. Use `optimization-slide.html` for the standalone optimization slide. Preserve the source evidence and add team-specific details only when confirmed.

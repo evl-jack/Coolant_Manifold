@@ -1,0 +1,6 @@
+beta_0 junction_cell: derivative=True Taylor=True
+beta_0 collar_cell: derivative=True Taylor=True
+beta_2 junction_cell: derivative=True Taylor=True
+beta_2 collar_cell: derivative=True Taylor=True
+beta_8 junction_cell: derivative=True Taylor=True
+beta_8 collar_cell: derivative=True Taylor=True

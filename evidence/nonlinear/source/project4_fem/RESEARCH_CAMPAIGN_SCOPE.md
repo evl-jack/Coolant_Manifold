@@ -1,0 +1,21 @@
+# Coolant manifold research campaign scope
+
+## Scientific priority
+
+Test whether the measured flow–pressure tradeoff near the best screened metering shape leaves a meaningful direction toward the 19.5%–20.5% side-flow band. The prior fine fitted-wall result was 21.2062% with pressure loss 95.2336. Its 0.0862-unit pressure headroom is smaller than the 0.2153-unit medium-grid FEM/OpenFOAM discrepancy for the same upper-pocket design. The two models also differ in outlet traction treatment. A new calculation must answer a local design-authority question or a separate pressure-boundary question with observable consequences. [Previous decision handoff](OPENFOAM_GEOMETRY_RANS_HANDOFF.md) · [Independent OpenFOAM evidence](next_openfoam/OPENFOAM_VALIDATION.md)
+
+The initial computation is a small fitted-wall laminar Re 50 study around the existing metering shapes. Use the established solver and fixed topology with parameter changes confined to the existing symmetric metering reach and shoulder supports. The exact stencil, geometric checks, numerical screens and resource estimate belong in the study protocol, with independent compliance review before submission. Use the established 19.5%–20.5% flow band, provisional 95.31983921402909 pressure screen, 1.00 mm minimum width and baseline-relative area screen. Keep the fixed ports and measurement planes under the [common specification](NEXT_STAGE_COMMON_SPEC.md). Report both signed hydraulic margins, the mesh sensitivity of material gains, and failed cases.
+
+## Claim-to-evidence decisions
+
+| Work | Priority and evidence threshold |
+| --- | --- |
+| Local fitted-wall Re 50 screen | Required for deciding whether the existing metering controls warrant further design work. Use measured states for any reported improvement. Nearby responses or a local linear model cannot establish full-family feasibility or optimality. |
+| A fresh OpenFOAM solve | Conditional on a measured new shape near the flow band or a result that makes the pressure discrepancy decisive for a candidate. Use the accepted quality mesh and agreed outlet conventions. Inspect archived pressure traces and signed fluxes first. |
+| Physical RANS and full RANS gradient verification | Required if a turbulent-manifold performance or optimization claim is made, or if the course team imposes a separate RANS deliverable. The course example explicitly permits Stokes or laminar Navier–Stokes with Brinkman and inertial nonlinearity. Its turbulence-adjoint guidance applies when RANS is used. Existing manufactured checks and channel benchmarks remain partial. [Project 4 specification](https://designinformaticslab.github.io/DesignOptimization2025/project4.html) · [RANS verification record](next_rans_adjoint/README.md) |
+| Final optimization evidence | The course asks for verified in-house analysis, derivatives, a gradient-based constrained design study with KKT interpretation where supported, a nonlinear comparison, and a report with an interactive 3D view. An eventual stationary solution and production geometry require a specified feasible formulation and verified derivatives for its actual design controls. An unresolved search is reportable evidence. [Course deliverables](https://designinformaticslab.github.io/DesignOptimization2025/project4.html) |
+| Larger geometry, physical head budget and manufacturing production limits | Review and approval decisions. Existing numerical screens do not specify wall stock, cutter clearance, tolerance, hardware head allowance or the final area rule. |
+
+## Coordination and Sol
+
+Independent compliance reviews the scientific scope and any proposed acceptance or formulation change. Geometry owns the stencil and response measurements. Numerical verification reviews mesh, design variation and derivative claims. The lead handles Sol coordination and the synthesis, using a separate OpenFOAM/HPC review role when a worker slot is available. Keep source ownership separate and capture exact inputs, failures, elapsed time, allocated and measured CPU-hours, and peak memory. Favor a modest four-worker batch for small independent FEM states with one BLAS/OpenMP thread per worker. The prior 20-state metering job provides a throughput datum of 97 seconds with four workers, not a guarantee for a refined stencil. [Sol performance evidence](next_hpc/README.md)

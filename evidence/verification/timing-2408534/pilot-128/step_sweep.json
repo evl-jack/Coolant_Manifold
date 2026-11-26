@@ -1,0 +1,1003 @@
+{
+  "probe_coordinates": [
+    58,
+    89
+  ],
+  "steps": [
+    {
+      "step": 0.01,
+      "gradient_error": {
+        "normalized_power": {
+          "absolute_error_linf": 4.431093950964249e-09,
+          "absolute_error_l2": 4.452767633694837e-09,
+          "relative_error_l2": 3.5195213745922642e-06,
+          "worst_coordinate": 89
+        },
+        "side_fraction": {
+          "absolute_error_linf": 8.209382560244241e-09,
+          "absolute_error_l2": 8.322817042933508e-09,
+          "relative_error_l2": 3.694363298296915e-06,
+          "worst_coordinate": 89
+        }
+      },
+      "results": [
+        {
+          "coordinate": 58,
+          "step": 0.01,
+          "gradient": [
+            -0.0006482738873270222,
+            0.0012357672569310307
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976807196574571,
+                0.07653110109491114
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.7902583028189838,
+                  "cpu_seconds": 0.7867506489999982
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.7892743940465152,
+                  "cpu_seconds": 0.7857733860000025
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.00040606316179037094,
+                  "cpu_seconds": 0.00040660300000183724
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005595418624579906,
+                  "cpu_seconds": 0.000555482000009988
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.2939511453732848,
+                  "cpu_seconds": 0.29261780900000645
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.00798526220023632,
+                  "cpu_seconds": 0.007944317000010415
+                },
+                "newton_iterations": 2,
+                "newton_factorizations": 2,
+                "residual": 5.683909136948049e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976677541797105,
+                0.07655581644004976
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.7826608996838331,
+                  "cpu_seconds": 0.7792230849999982
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.7817861246876419,
+                  "cpu_seconds": 0.778350599999996
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0003050738014280796,
+                  "cpu_seconds": 0.00030529199999307366
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005527287721633911,
+                  "cpu_seconds": 0.000553448000005119
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.293732566293329,
+                  "cpu_seconds": 0.2923424749999981
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.007870735600590706,
+                  "cpu_seconds": 0.007830686000005471
+                },
+                "newton_iterations": 2,
+                "newton_factorizations": 2,
+                "residual": 5.238952988876472e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 1.5763453040271997,
+            "cpu_seconds": 1.56937989299999
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        },
+        {
+          "coordinate": 89,
+          "step": 0.01,
+          "gradient": [
+            -0.001086456698973226,
+            0.0018836695490333233
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976851173069092,
+                0.0765245974082029
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.7754686088301241,
+                  "cpu_seconds": 0.7720890270000069
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.7745920713059604,
+                  "cpu_seconds": 0.7712216690000133
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.00029748957604169846,
+                  "cpu_seconds": 0.0002979890000034402
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005615050904452801,
+                  "cpu_seconds": 0.000555323000000385
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.29224815405905247,
+                  "cpu_seconds": 0.2909273710000093
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.0078118350356817245,
+                  "cpu_seconds": 0.007772057000011046
+                },
+                "newton_iterations": 2,
+                "newton_factorizations": 2,
+                "residual": 5.888417195249601e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976633881729298,
+                0.07656227079918357
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.7755224104039371,
+                  "cpu_seconds": 0.7720730829999951
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.7746274471282959,
+                  "cpu_seconds": 0.7711920809999953
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.00031217699870467186,
+                  "cpu_seconds": 0.00030707599999857393
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005646008066833019,
+                  "cpu_seconds": 0.000559318999989955
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.2925275401212275,
+                  "cpu_seconds": 0.29121244600000296
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.007803040090948343,
+                  "cpu_seconds": 0.007764694000002237
+                },
+                "newton_iterations": 2,
+                "newton_factorizations": 2,
+                "residual": 5.574195076872568e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 1.5546296490356326,
+            "cpu_seconds": 1.5477865880000081
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        }
+      ]
+    },
+    {
+      "step": 0.001,
+      "gradient_error": {
+        "normalized_power": {
+          "absolute_error_linf": 4.295965059381013e-11,
+          "absolute_error_l2": 4.323730924465881e-11,
+          "relative_error_l2": 3.417529199478129e-08,
+          "worst_coordinate": 89
+        },
+        "side_fraction": {
+          "absolute_error_linf": 8.21080124464163e-11,
+          "absolute_error_l2": 8.32394476006973e-11,
+          "relative_error_l2": 3.694863873616236e-08,
+          "worst_coordinate": 89
+        }
+      },
+      "results": [
+        {
+          "coordinate": 58,
+          "step": 0.001,
+          "gradient": [
+            -0.0006482734534185575,
+            0.0012357659011849598
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976748765320137,
+                0.07654224159596486
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.7745632668957114,
+                  "cpu_seconds": 0.7712048380000027
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.7737005851231515,
+                  "cpu_seconds": 0.770344313999999
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0002927700988948345,
+                  "cpu_seconds": 0.00029325999999230135
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005524680018424988,
+                  "cpu_seconds": 0.0005531880000120282
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.2924148882739246,
+                  "cpu_seconds": 0.29105876700000977
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.007770187687128782,
+                  "cpu_seconds": 0.007730605999995532
+                },
+                "newton_iterations": 2,
+                "newton_factorizations": 2,
+                "residual": 6.0554995262931954e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976735799851069,
+                0.07654471312776723
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.776072524022311,
+                  "cpu_seconds": 0.7726491550000105
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.7751934509724379,
+                  "cpu_seconds": 0.7717774700000035
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0003124969080090523,
+                  "cpu_seconds": 0.0003078270000003158
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005494230426847935,
+                  "cpu_seconds": 0.0005502119999931665
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.29307671217247844,
+                  "cpu_seconds": 0.29169575600000996
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.007894020061939955,
+                  "cpu_seconds": 0.007855492999993885
+                },
+                "newton_iterations": 2,
+                "newton_factorizations": 2,
+                "residual": 4.974842610208424e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 1.5542565979994833,
+            "cpu_seconds": 1.5474557879999935
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        },
+        {
+          "coordinate": 89,
+          "step": 0.001,
+          "gradient": [
+            -0.0010864523108389257,
+            0.0018836614217587755
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976753148690842,
+                0.07654159345380715
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.7744694910943508,
+                  "cpu_seconds": 0.7711108739999872
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.7735894159413874,
+                  "cpu_seconds": 0.7702388569999954
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.00029701879248023033,
+                  "cpu_seconds": 0.0002974579999914795
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005657742731273174,
+                  "cpu_seconds": 0.0005608519999924511
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.292571232188493,
+                  "cpu_seconds": 0.2912425389999953
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.007828406989574432,
+                  "cpu_seconds": 0.007790913999997429
+                },
+                "newton_iterations": 2,
+                "newton_factorizations": 2,
+                "residual": 5.21583491864706e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976731419644626,
+                0.07654536077665067
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.7765758601017296,
+                  "cpu_seconds": 0.7731981330000082
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.7756830328144133,
+                  "cpu_seconds": 0.7723177519999922
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0003115660510957241,
+                  "cpu_seconds": 0.0003064450000067609
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005642510950565338,
+                  "cpu_seconds": 0.000560120999992364
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.29329449078068137,
+                  "cpu_seconds": 0.29196212800000865
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.007835780270397663,
+                  "cpu_seconds": 0.007797824000007836
+                },
+                "newton_iterations": 2,
+                "newton_factorizations": 2,
+                "residual": 5.2516572125358655e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 1.5546763576567173,
+            "cpu_seconds": 1.5479258990000062
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        }
+      ]
+    },
+    {
+      "step": 0.0001,
+      "gradient_error": {
+        "normalized_power": {
+          "absolute_error_linf": 1.3817983215980156e-12,
+          "absolute_error_l2": 1.4080002540193645e-12,
+          "relative_error_l2": 1.1129004244356909e-09,
+          "worst_coordinate": 89
+        },
+        "side_fraction": {
+          "absolute_error_linf": 8.67442619470471e-13,
+          "absolute_error_l2": 8.835024964287472e-13,
+          "relative_error_l2": 3.9217240748207337e-10,
+          "worst_coordinate": 89
+        }
+      },
+      "results": [
+        {
+          "coordinate": 58,
+          "step": 0.0001,
+          "gradient": [
+            -0.0006482734482560204,
+            0.0012357658876749333
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976742929993581,
+                0.07654335397112332
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.46168693201616406,
+                  "cpu_seconds": 0.4595685630000048
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.4608212150633335,
+                  "cpu_seconds": 0.4587049329999999
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0003011757507920265,
+                  "cpu_seconds": 0.0003015750000017192
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005470081232488155,
+                  "cpu_seconds": 0.0005478970000041272
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14628422819077969,
+                  "cpu_seconds": 0.14558452800000055
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.003917505033314228,
+                  "cpu_seconds": 0.0039004750000017907
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 2.0586345128581485e-12,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976741633446684,
+                0.07654360112430085
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.4660831871442497,
+                  "cpu_seconds": 0.4615405150000029
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.465193975251168,
+                  "cpu_seconds": 0.4606595420000019
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.00030250800773501396,
+                  "cpu_seconds": 0.0003029180000027054
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005694408901035786,
+                  "cpu_seconds": 0.0005639990000005923
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.1461581913754344,
+                  "cpu_seconds": 0.14494657000000188
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.0039136880077421665,
+                  "cpu_seconds": 0.003894895000001952
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 2.0583118542916168e-12,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 0.9305532108992338,
+            "cpu_seconds": 0.9238693850000033
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        },
+        {
+          "coordinate": 89,
+          "step": 0.0001,
+          "gradient": [
+            -0.0010864522692610734,
+            0.0018836613405182057
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976743368187536,
+                0.07654328917914477
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.464367110747844,
+                  "cpu_seconds": 0.4621685850000006
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.46349619422107935,
+                  "cpu_seconds": 0.4612996060000114
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0003001936711370945,
+                  "cpu_seconds": 0.0003006839999954991
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005538309924304485,
+                  "cpu_seconds": 0.0005545799999993051
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14620588114485145,
+                  "cpu_seconds": 0.14552362000000585
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.003937942907214165,
+                  "cpu_seconds": 0.003919300999996267
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 1.2722115028118708e-12,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976741195282998,
+                0.07654366591141287
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.4644486838951707,
+                  "cpu_seconds": 0.462416091999998
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.46355940168723464,
+                  "cpu_seconds": 0.4615348689999905
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.00031217699870467186,
+                  "cpu_seconds": 0.0003125559999972438
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.000559512060135603,
+                  "cpu_seconds": 0.0005542800000029047
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14584043389186263,
+                  "cpu_seconds": 0.145182884999997
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.003954142797738314,
+                  "cpu_seconds": 0.003935009000002765
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 1.2723364029021411e-12,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 0.9315946390852332,
+            "cpu_seconds": 0.9273484400000029
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        }
+      ]
+    },
+    {
+      "step": 1e-05,
+      "gradient_error": {
+        "normalized_power": {
+          "absolute_error_linf": 1.0263582518599268e-11,
+          "absolute_error_l2": 1.3038931277863486e-11,
+          "relative_error_l2": 1.0306128931367726e-08,
+          "worst_coordinate": 89
+        },
+        "side_fraction": {
+          "absolute_error_linf": 1.3588665782882092e-12,
+          "absolute_error_l2": 1.380384297217642e-12,
+          "relative_error_l2": 6.127301680283948e-10,
+          "worst_coordinate": 58
+        }
+      },
+      "results": [
+        {
+          "coordinate": 58,
+          "step": 1e-05,
+          "gradient": [
+            -0.0006482734404844592,
+            0.0012357658861483767
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976742346538292,
+                0.07654346519201072
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.4608229580335319,
+                  "cpu_seconds": 0.45879544900000724
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.45995192090049386,
+                  "cpu_seconds": 0.4579327909999904
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0002907062880694866,
+                  "cpu_seconds": 0.00029119600000626633
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005635390989482403,
+                  "cpu_seconds": 0.0005579259999990427
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14646809408441186,
+                  "cpu_seconds": 0.14578485200000557
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.0039028883911669254,
+                  "cpu_seconds": 0.0038822309999915205
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 2.0566881531181025e-14,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976742216883604,
+                0.07654348990732844
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.4625278329476714,
+                  "cpu_seconds": 0.46046553300000426
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.46163866203278303,
+                  "cpu_seconds": 0.45958434000000636
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0003044530749320984,
+                  "cpu_seconds": 0.0003047720000068921
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005679181776940823,
+                  "cpu_seconds": 0.000562896000005253
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14700020384043455,
+                  "cpu_seconds": 0.14630998500000203
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.004102793056517839,
+                  "cpu_seconds": 0.00408478100000309
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 2.0462798122622416e-14,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 0.9261059812270105,
+            "cpu_seconds": 0.922005378999998
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        },
+        {
+          "coordinate": 89,
+          "step": 1e-05,
+          "gradient": [
+            -0.0010864522781428576,
+            0.0018836613394079824
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976742390356329,
+                0.07654345871303184
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.4614111543633044,
+                  "cpu_seconds": 0.45941545699999153
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.4605378219857812,
+                  "cpu_seconds": 0.4585441229999958
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0002992921508848667,
+                  "cpu_seconds": 0.0002997520000036502
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005568270571529865,
+                  "cpu_seconds": 0.0005575860000135435
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14641885086894035,
+                  "cpu_seconds": 0.145717007000016
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.003968941979110241,
+                  "cpu_seconds": 0.003948124999993752
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 1.3159612288760059e-14,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976742173065873,
+                0.07654349638625862
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.4625931968912482,
+                  "cpu_seconds": 0.46060634400001277
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.46171567728742957,
+                  "cpu_seconds": 0.45973105300001293
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0003053750842809677,
+                  "cpu_seconds": 0.0003057129999888275
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.000554592814296484,
+                  "cpu_seconds": 0.000555301000019881
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14669364783912897,
+                  "cpu_seconds": 0.14604324399999769
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.0039032073691487312,
+                  "cpu_seconds": 0.003890707000010707
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 1.3176959523519827e-14,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 0.9267670740373433,
+            "cpu_seconds": 0.922765145999989
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        }
+      ]
+    },
+    {
+      "step": 1e-06,
+      "gradient_error": {
+        "normalized_power": {
+          "absolute_error_linf": 2.0845156200113846e-10,
+          "absolute_error_l2": 2.0854947319521968e-10,
+          "relative_error_l2": 1.648400251152282e-07,
+          "worst_coordinate": 58
+        },
+        "side_fraction": {
+          "absolute_error_linf": 1.2247228621878326e-11,
+          "absolute_error_l2": 1.7024276399105032e-11,
+          "relative_error_l2": 7.556799769173834e-09,
+          "worst_coordinate": 89
+        }
+      },
+      "results": [
+        {
+          "coordinate": 58,
+          "step": 1e-06,
+          "gradient": [
+            -0.000648273656977949,
+            0.001235765899332275
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976742288193595,
+                0.07654347631392323
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.4617995638400316,
+                  "cpu_seconds": 0.45976421500000697
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.46092861611396074,
+                  "cpu_seconds": 0.4589019669999743
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0002913777716457844,
+                  "cpu_seconds": 0.0002917779999904724
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005619660951197147,
+                  "cpu_seconds": 0.0005562329999975191
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14669457031413913,
+                  "cpu_seconds": 0.14605108000000655
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.003939875867217779,
+                  "cpu_seconds": 0.003922296000013148
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 5.659176198404697e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976742275228122,
+                0.07654347878545503
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.46168986801058054,
+                  "cpu_seconds": 0.4596549379999999
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.46080415276810527,
+                  "cpu_seconds": 0.45877791399999523
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0003027692437171936,
+                  "cpu_seconds": 0.0003031480000004194
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005653128027915955,
+                  "cpu_seconds": 0.0005600690000164832
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14653228502720594,
+                  "cpu_seconds": 0.1458831509999925
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.00395642826333642,
+                  "cpu_seconds": 0.003936503999995011
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 4.99788063582432e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 0.926236477214843,
+            "cpu_seconds": 0.9221566570000164
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        },
+        {
+          "coordinate": 89,
+          "step": 1e-06,
+          "gradient": [
+            -0.0010864522614895122,
+            0.0018836613518979917
+          ],
+          "points": {
+            "minus": {
+              "responses": [
+                0.9976742292575382,
+                0.07654347566602754
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.4621714842505753,
+                  "cpu_seconds": 0.460110592999996
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.46130444342270494,
+                  "cpu_seconds": 0.4592455510000093
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.0002998141571879387,
+                  "cpu_seconds": 0.0003002629999855344
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005500540137290955,
+                  "cpu_seconds": 0.000550763000006782
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14662402775138617,
+                  "cpu_seconds": 0.1459764360000122
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.003980453126132488,
+                  "cpu_seconds": 0.003962330999996766
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 6.186681530537719e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            },
+            "plus": {
+              "responses": [
+                0.9976742270846337,
+                0.07654347943335024
+              ],
+              "timing": {
+                "total": {
+                  "wall_seconds": 0.4611147562973201,
+                  "cpu_seconds": 0.4591126320000001
+                },
+                "nonlinear_state": {
+                  "wall_seconds": 0.46023510303348303,
+                  "cpu_seconds": 0.4582404249999854
+                },
+                "filter_and_transfer": {
+                  "wall_seconds": 0.00030230823904275894,
+                  "cpu_seconds": 0.0003025179999838201
+                },
+                "port_response_evaluation": {
+                  "wall_seconds": 0.0005601732991635799,
+                  "cpu_seconds": 0.0005559130000278856
+                },
+                "newton_factorization": {
+                  "wall_seconds": 0.14596200175583363,
+                  "cpu_seconds": 0.14531293499999265
+                },
+                "newton_substitution": {
+                  "wall_seconds": 0.003948333207517862,
+                  "cpu_seconds": 0.003928549000022485
+                },
+                "newton_iterations": 1,
+                "newton_factorizations": 1,
+                "residual": 6.460860695728897e-15,
+                "forward_solves": 1,
+                "peak_rss_bytes": 205516800
+              }
+            }
+          },
+          "task_time": {
+            "wall_seconds": 0.9260165831074119,
+            "cpu_seconds": 0.9219388980000076
+          },
+          "worker_pid": 414031,
+          "peak_rss_bytes": 205516800
+        }
+      ]
+    }
+  ]
+}

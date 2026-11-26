@@ -1,0 +1,100 @@
+--- archived/source/project4_fem/project43_power.py
++++ staged/source/project4_fem/project43_power.py
+@@ -8,14 +8,14 @@
+ from .project43_brinkman import create_problem
+ 
+ 
+-def port_power(fem, ports, state, re):
++def port_power(fem, ports, state, re, *, differentiate=True):
+     # P2 trace for velocity and P1 for pressure. Four Gauss points integrate
+     # the degree-six kinetic flux exactly along each straight port edge.
+     q, w = np.polynomial.legendre.leggauss(4)
+     t, w = (q+1)/2, w/2
+     b = np.stack(((1-t)*(1-2*t), t*(2*t-1), 4*t*(1-t)), axis=1)
+     p = np.stack((1-t, t), axis=1)
+-    grad = np.zeros(fem.size)
++    grad = np.zeros(fem.size) if differentiate else None
+     powers = []
+     for edges, normal in zip(ports, ([1,0], [-1,0], [0,-1])):
+         normal = np.asarray(normal)
+@@ -25,9 +25,10 @@
+         head = state[pn]@p.T + .5*re*np.sum(uv**2, axis=-1)
+         un = uv@normal
+         powers.append(float(np.sum(weight*un*head)))
+-        np.add.at(grad, pn, (weight*un)@p)
+-        for i in range(2):
+-            np.add.at(grad, edges+i*fem.n_u, (weight*(normal[i]*head+un*re*uv[:,:,i]))@b)
++        if differentiate:
++            np.add.at(grad, pn, (weight*un)@p)
++            for i in range(2):
++                np.add.at(grad, edges+i*fem.n_u, (weight*(normal[i]*head+un*re*uv[:,:,i]))@b)
+     return powers, grad
+ 
+ 
+--- archived/source/project4_fem/project43_topology/evaluator.py
++++ staged/source/project4_fem/project43_topology/evaluator.py
+@@ -60,7 +60,7 @@
+         )
+ 
+ 
+-def response_values(domain, state):
++def response_values(domain, state, *, differentiate=True):
+     """Return dimensionless port fluxes, physical power, and state gradients."""
+     flux = domain.flux @ state
+     inlet, main, side = flux
+@@ -70,9 +70,9 @@
+     if abs(inlet - 1) > 1e-9 or imbalance > 1e-9:
+         raise RuntimeError(f"Port flux balance failed: {flux}, relative imbalance {imbalance:.3e}")
+     fraction = side / inlet
+-    power, gradient = port_power(domain.fem, domain.ports, state, REYNOLDS)
+-    state_gradients = np.stack((POWER_SCALE * gradient,
+-                                (domain.flux[2] - fraction * domain.flux[0]) / inlet))
++    power, gradient = port_power(domain.fem, domain.ports, state, REYNOLDS, differentiate=differentiate)
++    state_gradients = (np.stack((POWER_SCALE * gradient, (domain.flux[2] - fraction * domain.flux[0]) / inlet))
++                       if differentiate else None)
+     return flux, imbalance, POWER_SCALE * sum(power), fraction, state_gradients
+ 
+ 
+--- archived/source/project4_fem/project43_topology/fixed_pipe_pilot_model.py
++++ staged/source/project4_fem/project43_topology/fixed_pipe_pilot_model.py
+@@ -39,8 +39,10 @@
+         self.free = _in_box(*grid.centers_mm.T, DESIGN_BOUNDS_MM)
+         self.free.setflags(write=False)
+         self.size = int(self.free.sum())
+-        if self.size != EDITABLE_COUNT:
+-            raise ValueError(f"Expected {EDITABLE_COUNT} editable cells, got {self.size}")
++        x0, y0, x1, y1 = DESIGN_BOUNDS_MM
++        expected = round((x1 - x0) * (y1 - y0) / grid.cell_area_mm2)
++        if self.size != expected:
++            raise ValueError(f"Expected {expected} editable cells, got {self.size}")
+         self._base_raw = grid.base_raw.copy()
+ 
+         ny, nx = grid.shape
+@@ -71,12 +73,14 @@
+         return density
+ 
+ 
+-def build_fixed_pipe():
++def build_fixed_pipe(max_spacing_mm=SPACING_MM, density_spacing_mm=SPACING_MM):
+     """Use the common structured mesh machinery on the exact pilot envelope."""
+-    grid = DesignGrid(SPACING_MM)
++    if not np.isfinite(max_spacing_mm) or max_spacing_mm <= 0.:
++        raise ValueError("The maximum FEM axis spacing must be finite and positive")
++    grid = DesignGrid(density_spacing_mm)
+     pipeline = FixedPipeDensity(grid)
+-    x_axis = _refined_axis(np.r_[0., grid.x_edges_mm, 20.], SPACING_MM)
+-    y_axis = _refined_axis(np.r_[grid.y_edges_mm, 7.], SPACING_MM)
++    x_axis = _refined_axis(np.r_[MAIN_BOUNDS_MM[::2], grid.x_edges_mm, COLLAR_BOUNDS_MM[::2]], max_spacing_mm)
++    y_axis = _refined_axis(np.r_[MAIN_BOUNDS_MM[1::2], grid.y_edges_mm, COLLAR_BOUNDS_MM[1::2]], max_spacing_mm)
+     xx, yy = np.meshgrid(x_axis, y_axis)
+     points = np.column_stack((xx.ravel(), yy.ravel()))
+     triangles = strip_triangles(np.arange(xx.size).reshape(xx.shape))
+@@ -101,7 +105,7 @@
+     lengths = [np.linalg.norm(fem.points[edges[:, 1]] - fem.points[edges[:, 0]], axis=1).sum()
+                * REFERENCE_HEIGHT_MM for edges in ports]
+     np.testing.assert_allclose(lengths, [4., 4., 1.], rtol=1e-12)
+-    return TopologyDomain(fem, fixed, prescribed, ports, flux, cell_index, SPACING_MM), pipeline
++    return TopologyDomain(fem, fixed, prescribed, ports, flux, cell_index, max_spacing_mm), pipeline
+ 
+ 
+ class FixedPipeEvaluator(Evaluator):

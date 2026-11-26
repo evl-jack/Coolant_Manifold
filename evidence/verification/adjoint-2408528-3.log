@@ -1,0 +1,3 @@
+beta_2 random: derivative=True Taylor=True
+beta_2 junction_cell: derivative=True Taylor=False
+beta_2 collar_cell: derivative=True Taylor=False

@@ -1,0 +1,3 @@
+gray random: derivative=True Taylor=True
+gray junction_cell: derivative=True Taylor=True
+gray collar_cell: derivative=True Taylor=True
