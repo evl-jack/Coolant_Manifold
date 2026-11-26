@@ -1,4 +1,4 @@
-import {buildPipe} from "./pipe.js";
+import {buildPipe} from "./pipe.js?v=pipe-loft-1";
 
 const $=id=>document.getElementById(id);
 const fetchJSON=async p=>{const r=await fetch(p);if(!r.ok)throw Error(p+': '+r.status);return r.json()};
@@ -215,6 +215,7 @@ async function refresh() {
         : "Drag to orbit. Use Shift or Pan to move both views. Select Cutaway or Numerical geometry to inspect the FEM fields.";
     legend();
     drawAll();
+    if (!$("viewer").dataset.readyMs) $("viewer").dataset.readyMs = Math.round(performance.now());
 }
 function legend(){let f=$('field').value;if($('mode').value==='realistic'||f==='geometry'||f==='mesh'){$('legend').innerHTML='Geometry / mesh display; no field scale.';return}let p=f==='pressure',v=p?limits.pressure:limits.speed;$('legend').innerHTML=`<div class="bar" style="background:${p?'linear-gradient(90deg,#2157a6,#f5f5f5,#ab2e26)':'linear-gradient(90deg,#e8f5ff,#0d3b8c)'}"></div>${p?(-v).toExponential(3)+' · 0 · ': '0 · '}${v.toExponential(3)} ${p?'Pa (signed pressure)':'m/s (speed)'} · shared range`}
 function stage(i) {
