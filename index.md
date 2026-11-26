@@ -132,7 +132,7 @@ The original and raw optimized geometries passed the mesh screen across 0.25, 0.
 
 ## 9. Limitations, AI use, and reproduction
 
-The study establishes a planar hydraulic improvement at one flow rate. It does not establish cooling effectiveness, 3D performance, or global optimality. Fluid area and the outlet split changed together, so the fitted comparison cannot isolate the effect of wall rounding. Finite Brinkman resistance permits leakage. The three-dimensional viewer depicts the planar solution on an extrusion and includes a conceptual cylindrical interpretation.
+The study establishes a planar hydraulic improvement at one flow rate. It does not establish cooling effectiveness, 3D performance, or global optimality. Fluid area and the outlet split changed together, so the fitted comparison cannot isolate the effect of wall rounding. Finite Brinkman resistance permits leakage. The cylindrical view lofts circular sections through the archived left and right branch walls. The 0.22 mm wall is for display. The Stokes loft bridges short re-entrant sections. Cutaway shows the computed planar field at the center plane. Numerical geometry displays the exact fitted walls as a 0.6 mm extrusion. All fields come from the planar solution.
 
 ChatGPT assisted with formulation, study planning, interpretation, and writing. Codex assisted with FEM and adjoint implementation, verification scripts, run execution, plotting, and report assembly. The evidence includes exact-flow comparisons, finite-difference and Taylor checks, KKT diagnostics, and fitted-wall mesh refinement. It does not document which checks the team derived independently or a specific bug caught in the graded laminar solver.
 

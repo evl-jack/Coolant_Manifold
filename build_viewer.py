@@ -1,33 +1,74 @@
+"""Build display-only pipe sections from the archived contour polygons."""
+
 from pathlib import Path
 import json
-import numpy as np
-from shapely.geometry import shape, LineString
-from skimage.measure import marching_cubes
-R=Path(__file__).resolve().parent; out=R/'assets/viewer';out.mkdir(exist_ok=True)
-v=R/'evidence/verification/input';n=R/'evidence/nonlinear/stokes_run/stage_03_beta_8/selected'
-paths={'original':v/'stage_03_beta_8/original/geometry.json','raw':v/'stage_03_beta_8/selected/geometry.json','smoothed':v/'smoothed_geometry.json','stokes':n/'geometry.json'}
-def read(p):return json.loads(p.read_text())
-for name,p in paths.items():
- d=read(p);poly=shape(d.get('geometry',d));
- # Sample actual horizontal branch sections; preserve width, not centerline asymmetry.
- ys=np.linspace(4.00001,6.99999,601);r=[]
- for y in ys:
-  sect=poly.intersection(LineString([(7,y),(13,y)]));r.append(sect.length/2)
- step=.065; x=np.arange(-.15,20.16,step); y=np.arange(-.15,7.16,step); z=np.arange(-2.2,2.21,step)
- X=x[:,None,None];Y=y[None,:,None];Z=z[None,None,:]
- main=np.maximum(np.sqrt((Y-2)**2+Z**2)-2,np.maximum(-X,X-20))
- # Extend base radius into the main cylinder to form a single joined fluid-volume surface.
- rad=np.interp(y,ys,r,left=r[0],right=.5)[None,:,None]
- side=np.maximum(np.sqrt((X-10)**2+Z**2)-rad,np.maximum(2-Y,Y-7))
- sdf=np.minimum(main,side).astype('float32')
- verts,faces,_,_=marching_cubes(sdf,level=0,spacing=(step,)*3);verts+=np.array([x[0],y[0],z[0]])
- # Remove cap faces at physical openings. Display fluid-volume skin, not a wall-thickness model.
- f=verts[faces];keep=~((np.max(np.abs(f[:,:,0]),axis=1)<.075)|(np.max(np.abs(f[:,:,0]-20),axis=1)<.075)|(np.max(np.abs(f[:,:,1]-7),axis=1)<.075));faces=faces[keep]
- np.asarray(verts,dtype='<f4').tofile(out/f'{name}-cyl-vertices.bin');np.asarray(faces,dtype='<u4').tofile(out/f'{name}-cyl-faces.bin')
- (out/f'{name}-geometry.json').write_text(json.dumps({'contour':list(poly.exterior.coords),'profile_y_mm':ys.tolist(),'radius_mm':r,'cyl_mesh_step_mm':step,'interpretation':'sampled equivalent circular width and union; fluid volume surface, open port caps; not CFD'}))
- print(name,verts.shape,faces.shape)
-stages=[]
-for i,folder in enumerate(['stage_01_beta_0','stage_02_beta_2','stage_03_beta_8']):
- for label in (['original','selected'] if i==0 else ['selected']):
-  m=read(v/folder/label/'metrics.json')['results'];stages.append({'label':'Original' if label=='original' else f'β = {[0,2,8][i]}','power':m['power_w_per_m']*1e6,'side':m['side_fraction']*100,'image':f'evidence/pilot/local/{folder}/images/'+('original_physical_geometry.png' if label=='original' else 'optimized_physical_geometry.png'),'scope':'immersed checkpoint'})
-(out/'stages.json').write_text(json.dumps(stages))
+
+ROOT = Path(__file__).resolve().parent
+OUTPUT = ROOT / "assets/viewer"
+INPUT = "evidence/verification/input"
+STAGES = ("stage_01_beta_0", "stage_02_beta_2", "stage_03_beta_8")
+CONTOURS = {
+    "original": f"{INPUT}/{STAGES[2]}/original/geometry.json",
+    "raw": f"{INPUT}/{STAGES[2]}/selected/geometry.json",
+    "smoothed": f"{INPUT}/smoothed_geometry.json",
+    "stokes": f"evidence/nonlinear/stokes_run/{STAGES[2]}/selected/geometry.json",
+}
+
+
+def read(path):
+    return json.loads((ROOT / path).read_text(encoding="utf-8"))
+
+
+def sections(path):
+    record = read(path)
+    polygon = record.get("geometry", record)
+    ring, = polygon["coordinates"]
+    walls = [(a, b) for a, b in zip(ring, ring[1:]) if a[1] != b[1]]
+    levels = sorted({4.0, 6.0, 7.0, *(y for _, y in ring if 4 < y < 7)})
+    rows = []
+    for lo, hi in zip(levels, levels[1:]):
+        middle = (lo + hi) / 2
+        edges = [(a, b) for a, b in walls if min(a[1], b[1]) < middle < max(a[1], b[1])]
+        if len(edges) < 2 or (len(edges) != 2 and "stokes_run" not in path):
+            raise ValueError(f"{path}: expected two branch walls at y={middle}")
+        for y in (lo, hi):
+            crossings = [a[0] + (y - a[1]) * (b[0] - a[0]) / (b[1] - a[1])
+                         for a, b in edges]
+            # Stokes contains a short re-entrant slice. Use its outer envelope for the loft.
+            left, right = min(crossings), max(crossings)
+            row = [round(s, 10) for s in (y, left, right)]
+            if not rows or row != rows[-1]:
+                rows.append(row)
+    if "stokes_run" in path:
+        for index in range(1, len(rows)):
+            previous, current = rows[index - 1:index + 1]
+            if previous[0] == current[0] and current[0] < 6:
+                # Bridge re-entrant slice changes over 0.01 mm for display.
+                previous[0] -= min(0.005, (previous[0] - rows[index - 2][0]) / 3)
+                current[0] += min(0.005, (rows[index + 1][0] - current[0]) / 3)
+    if rows[-1] != [7, 9.5, 10.5] or any(
+        row[1:] != [9.5, 10.5] for row in rows if row[0] > 6
+    ):
+        raise ValueError(f"{path}: fixed outlet dimensions changed")
+    return {"source": path, "sections_mm": rows}
+
+
+def build():
+    profiles = {name: sections(path) for name, path in CONTOURS.items()}
+    history = []
+    for position, stage in enumerate(STAGES):
+        for variant in (("original", "selected") if position == 0 else ("selected",)):
+            prefix = f"evidence/pilot/local/{stage}/images"
+            history.append({
+                "label": "Original" if variant == "original" else f"β = {(0, 2, 8)[position]}",
+                "geometry": f"{prefix}/{'original' if variant == 'original' else 'optimized'}_physical_geometry.png",
+                "density": f"{prefix}/{'initial' if variant == 'original' else 'optimized'}_density.png",
+            })
+    (OUTPUT / "pipe-profiles.json").write_text(
+        json.dumps({"wall_mm": 0.22, "profiles": profiles, "history": history},
+                   ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8"
+    )
+
+
+if __name__ == "__main__":
+    build()
