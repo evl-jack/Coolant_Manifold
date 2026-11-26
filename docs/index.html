@@ -100,20 +100,57 @@
 
 <p>The ladder below comes from the earlier team FEM report draft. It documents verification of common operators. The fixed-pipe audit and mesh studies have separate slots below.</p>
 
-<div class="table-scroll" markdown="1">
-
-| Check | Reference or gate | Measured result |
-|---|---|---|
-| Element basis and integration | Partition of unity, exact polynomial moments | Defect 0, quadrature moment error 1.11 × 10⁻¹⁶ |
-| Exact planar Poiseuille solution | Dimensionless flux 1 | 0.9999999999999918, relative error 8.22 × 10⁻¹⁵ |
-| Rotation invariance | Rotated Poiseuille flux 1 | 0.9999999999999974, relative error 2.55 × 10⁻¹⁵ |
-| Global conservation | Net flux imbalance 0 | Relative imbalance 8.22 × 10⁻¹⁵ |
-| Manufactured mesh convergence | Velocity order ≥ 2.6 and pressure order ≥ 1.7 | Last velocity orders 3.128 and 3.097, pressure orders 3.226 and 3.422 |
-| Nonlinear residual and tangent | Manufactured nonlinear field and FD tangent | Velocity L² error 0.0017012, pressure L² error 0.0010254, tangent relative error 1.076 × 10⁻¹¹ |
-| Uniform Brinkman duct | Exact nondimensional flux 0.29057005 | Computed 0.29056943, relative error 2.153 × 10⁻⁶ |
-| Layered Brinkman duct | Exact nondimensional flux 0.17337432 | Computed 0.17337450, relative error 1.019 × 10⁻⁶ |
-
-</div>
+<table>
+<thead>
+<tr>
+  <th>Check</th>
+  <th>Reference or gate</th>
+  <th>Measured result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Element basis and integration</td>
+  <td>Partition of unity, exact polynomial moments</td>
+  <td>Defect 0, quadrature moment error 1.11 × 10⁻¹⁶</td>
+</tr>
+<tr>
+  <td>Exact planar Poiseuille solution</td>
+  <td>Dimensionless flux 1</td>
+  <td>0.9999999999999918, relative error 8.22 × 10⁻¹⁵</td>
+</tr>
+<tr>
+  <td>Rotation invariance</td>
+  <td>Rotated Poiseuille flux 1</td>
+  <td>0.9999999999999974, relative error 2.55 × 10⁻¹⁵</td>
+</tr>
+<tr>
+  <td>Global conservation</td>
+  <td>Net flux imbalance 0</td>
+  <td>Relative imbalance 8.22 × 10⁻¹⁵</td>
+</tr>
+<tr>
+  <td>Manufactured mesh convergence</td>
+  <td>Velocity order ≥ 2.6 and pressure order ≥ 1.7</td>
+  <td>Last velocity orders 3.128 and 3.097, pressure orders 3.226 and 3.422</td>
+</tr>
+<tr>
+  <td>Nonlinear residual and tangent</td>
+  <td>Manufactured nonlinear field and FD tangent</td>
+  <td>Velocity L² error 0.0017012, pressure L² error 0.0010254, tangent relative error 1.076 × 10⁻¹¹</td>
+</tr>
+<tr>
+  <td>Uniform Brinkman duct</td>
+  <td>Exact nondimensional flux 0.29057005</td>
+  <td>Computed 0.29056943, relative error 2.153 × 10⁻⁶</td>
+</tr>
+<tr>
+  <td>Layered Brinkman duct</td>
+  <td>Exact nondimensional flux 0.17337432</td>
+  <td>Computed 0.17337450, relative error 1.019 × 10⁻⁶</td>
+</tr>
+</tbody>
+</table>
 
 <div class="evidence" data-evidence="immersedMesh"><strong>Immersed mesh refinement</strong><p>Expected fields: spacing, element count, power, branch share and changes under refinement.</p></div>
 
@@ -196,3 +233,4 @@
   <footer><a href="https://designinformaticslab.github.io/DesignOptimization2025/project4.html">ASU Design Optimization · Project 4</a>   ·   <a href="https://github.com/evl-jack/Coolant_Manifold/tree/main/project4-fixed-pipe">Solver and report source</a></footer>
 </body>
 </html>
+

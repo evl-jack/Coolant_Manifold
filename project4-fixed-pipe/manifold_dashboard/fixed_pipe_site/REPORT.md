@@ -78,8 +78,6 @@ Quadratic velocity and linear pressure form a Taylor–Hood pair on triangular e
 
 The ladder below comes from the earlier team FEM report draft. It documents verification of common operators. The fixed-pipe audit and mesh studies have separate slots below.
 
-<div class="table-scroll" markdown="1">
-
 | Check | Reference or gate | Measured result |
 |---|---|---|
 | Element basis and integration | Partition of unity, exact polynomial moments | Defect 0, quadrature moment error 1.11 × 10⁻¹⁶ |
@@ -90,8 +88,6 @@ The ladder below comes from the earlier team FEM report draft. It documents veri
 | Nonlinear residual and tangent | Manufactured nonlinear field and FD tangent | Velocity L² error 0.0017012, pressure L² error 0.0010254, tangent relative error 1.076 × 10⁻¹¹ |
 | Uniform Brinkman duct | Exact nondimensional flux 0.29057005 | Computed 0.29056943, relative error 2.153 × 10⁻⁶ |
 | Layered Brinkman duct | Exact nondimensional flux 0.17337432 | Computed 0.17337450, relative error 1.019 × 10⁻⁶ |
-
-</div>
 
 <div class="evidence" data-evidence="immersedMesh"><strong>Immersed mesh refinement</strong><p>Expected fields: spacing, element count, power, branch share and changes under refinement.</p></div>
 <div class="evidence" data-evidence="fittedMesh"><strong>Fitted-wall mesh refinement</strong><p>Expected fields: matched fixed contours, refinement levels, power and side-flow uncertainty.</p></div>
