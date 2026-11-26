@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 370" role="img" aria-labelledby="title desc">
+<title id="title">Dimensioned original planar coolant manifold and boundary conditions</title><desc id="desc">A 20 by 4 millimeter main pipe, a 1 millimeter wide side branch from y=4 to 7, and a 4 by 2 millimeter editable region. Prescribed parabolic inlet, no-slip walls and zero total traction exits.</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto-start-reverse"><path d="M0 0L7 3.5L0 7Z" fill="#12647e"/></marker><pattern id="grid" width="6.75" height="6.75" patternUnits="userSpaceOnUse"><path d="M6.75 0H0V6.75" fill="none" stroke="#a3b6bf" stroke-width=".55"/></pattern></defs>
+<rect width="800" height="370" rx="12" fill="#f5f8fa"/><g transform="translate(130 290) scale(27 -27)">
+<path d="M0 0H20V4H10.5V7H9.5V4H0Z" fill="#bce0ec"/>
+<rect x="8" y="4" width="4" height="2" fill="#b4c8d1" fill-opacity=".25" stroke="#6c7f89" stroke-dasharray=".14 .10" stroke-width=".055"/>
+<rect x="8" y="4" width="4" height="2" fill="none" stroke="#9b6215" stroke-width=".08"/>
+<path d="M0 0H20M0 4H9.5V7M10.5 7V4H20" stroke="#203e50" stroke-width=".10" fill="none"/>
+<path d="M0 0V4M20 0V4M9.5 7H10.5" stroke="#12647e" stroke-width=".11" stroke-dasharray=".16 .09" fill="none"/>
+</g><g stroke="#12647e" stroke-width="1.5" fill="none" marker-end="url(#arrow)"><path d="M77 272H123"/><path d="M65 236H123"/><path d="M77 200H123"/><path d="M675 236H714"/><path d="M400 96V64"/></g>
+<g font-family="system-ui,sans-serif" font-size="14" fill="#203e50"><text x="18" y="186">Inlet</text><text x="18" y="301">Parabolic u</text><text x="685" y="220">Main exit</text><text x="685" y="252">σn = 0</text><text x="422" y="61">Side exit: σn = 0</text><text x="163" y="172">No-slip walls</text><text x="430" y="130" fill="#855413">Editable 4 × 2 mm</text><text x="430" y="147" fill="#855413">16 × 8 density cells</text><text x="420" y="95">1 mm collar</text><text x="137" y="24" font-weight="600">Original geometry · schematic in millimeters</text><text x="130" y="351" font-size="12">Fluid in blue · design rectangle outlined in amber · fixed walls dark</text></g>
+<g stroke="#12647e" fill="none" marker-start="url(#arrow)" marker-end="url(#arrow)"><path d="M130 315H670"/><path d="M112 182V290"/></g><g font-family="system-ui,sans-serif" font-size="13" fill="#12647e"><text x="375" y="333">20 mm</text><text x="104" y="243" transform="rotate(-90 104 243)">4 mm</text></g></svg>

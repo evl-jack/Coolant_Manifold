@@ -9,13 +9,18 @@ A coolant manifold distributes pumped coolant. A sharp junction can alter local 
 
 $$\min_m f=P(m)/P_{ref},\quad R(z,m)=0,\quad g=(\eta_{ref}-\eta(m))/0.001\le0,\quad 0\le m_i\le1.$$
 
-The original immersed design replay at the same continuation stage sets both references; final beta=8 eta_ref=0.074147376839036. This is a team-selected nondegradation requirement, not an industry standard. The physical fitted reference flow is a separate validation metric, not the immersed constraint. No area or turning-angle constraint; those quantities are diagnostics. One independent PDE inequality is present; do not invent a second constraint.
+The original immersed design replay at the same continuation stage sets both references; final beta=8 eta_ref=0.074147376839036. This is a team-selected nondegradation requirement, not an industry standard. The physical fitted reference flow is a separate validation metric, not the immersed constraint. No area or turning-angle constraint; those quantities are diagnostics. The final formulation contains one independent PDE inequality, in addition to the density bounds; a second independent PDE performance constraint was not studied.
 
 $$P=-\int_{\Gamma_{ports}}(p+\tfrac12\rho|u|^2)(u\cdot n)\,ds,\quad \eta=Q_{side}/Q_{in},\quad R_{eff}=P/Q_{in}^2.$$
 
 Here power is W per meter depth and flow is m²/s; R_eff is Pa·s/m². The normal points outward; inlet flux is positive when defined as minus the outward integral. Port power differs from dissipation by viscous boundary work and a discrete divergence defect, both included in the energy audit.
 
-## 3. Analysis and optimization slide
+
+![Dimensioned geometry and boundary conditions](assets/manifold-geometry.svg)
+
+The original branch is sharp; only the 4 mm × 2 mm rectangle surrounding its entrance can change. The 16 × 8 grid of 0.25 mm cells gives 128 editable controls. At fixed inlet flow, reducing power reduces effective hydraulic resistance, but preserving branch delivery is necessary to avoid merely diverting coolant away from the side outlet. No thermal load or downstream system resistance is modeled.
+
+## 3. Governing equations and finite-element analysis
 Steady incompressible momentum: $\rho(u\cdot\nabla)u-\nabla\cdot(2\mu D(u)-pI)+\alpha u=0$, $\nabla\cdot u=0$. Parabolic prescribed inlet, no slip on walls, zero total traction at both outlets. Re=50; mean inlet speed 0.01254758565 m/s; inlet flow per depth 5.01903426e-5 m²/s. Fluid properties: density 998.2 kg/m³ and dynamic viscosity 0.001002 Pa·s. P2 velocity/P1 pressure triangular elements, nonlinear Newton with the complete convection derivative $(\delta u\cdot\nabla)u+(u\cdot\nabla)\delta u$. Original analysis mesh 2,848 triangles / 13,359 DOFs. For tests $v,q_p$, the dimensional weak residual on the free space is
 
 $$
@@ -24,6 +29,15 @@ $$
 
 The inlet velocity is $u_x=6U(y/H)(1-y/H)$, $u_y=0$, with $H=4$ mm and $U=Re\mu/(\rho H)$. No body force is applied in the manifold experiment. Pressure scale is $\mu U/H$. The weak form is integrated over triangular elements with prescribed velocity degrees of freedom eliminated. Natural outlet traction is zero. The assembled residual includes viscous, pressure, continuity, convection and Brinkman terms.
 
+
+For a Newtonian fluid, the Cauchy stress is $\sigma=-pI+2\mu D(u)$, where $D(u)=(\nabla u+\nabla u^T)/2$. With $x^*=x/H$, $u^*=u/U$, and $p^*=pH/(\mu U)$, the dimensionless momentum and continuity equations are
+
+$
+Re(u^*\cdot\nabla^*)u^*-\nabla^*\cdot(2D^*(u^*)-p^*I)+\alpha^*u^*=0,\qquad \nabla^*\cdot u^*=0,\quad \alpha^*=\alpha H^2/\mu.
+$
+
+The inlet height is the Reynolds-number length scale, $Re=\rho UH/\mu=50$. The inlet profile integrates to $Q_{in}=UH$ per unit depth. On the outlets $\sigma n=0$ is a traction condition, not a prescription of zero pointwise pressure. On solid walls $u=0$; the immersed design adds distributed resistance inside the editable envelope. The fitted-wall validation instead replaces the density model with an impermeable reconstructed contour.
+
 The anchored Helmholtz mapping uses $H=M+r_f^2K$, $H_{EE}\tilde\gamma_E=M_E m_E-H_{EF}m_{0,F}$ for diagonal cell mass and fixed anchors; $r_f=0.5$ mm. Projection at $t=0.5$ uses $\bar\gamma=[\tanh(\beta t)+\tanh(\beta(\tilde\gamma-t))]/[\tanh(\beta t)+\tanh(\beta(1-t))]$. At $\beta=0$ it is the identity. Brinkman interpolation $\alpha=\alpha_{max}q(1-\bar\gamma)/(q+\bar\gamma)$, alpha_max=100000 kg/(m³·s), q=0.1, beta=0,2,8. MMA iterates densities; physical contour at 0.5. Exact original raw field at start. The pilot used 100 unique-evaluation cap per stage; 97 total unique MMA evaluations reported. The final endpoint is independently audited rather than relying on the native termination flag.
 
 **Optimization loop:** 128 densities → anchored filter → projection → Brinkman resistance → nonlinear FEM → port power & flow constraint → two discrete adjoints → MMA update → repeat. State variables u,p; objective and single inequality above; Re 50 is N2 nonlinear physics. The following figure shows the actual reconstructed contours.
@@ -31,6 +45,19 @@ The anchored Helmholtz mapping uses $H=M+r_f^2K$, $H_{EE}\tilde\gamma_E=M_E m_E-
 ![Actual optimized and original junction](evidence/pilot/local/stage_03_beta_8/images/junction_magnified.png)
 
 ![Editable Brinkman region](evidence/pilot/local/stage_03_beta_8/images/editable_brinkman_region.png)
+
+
+### Density continuation and reconstruction
+
+The filter suppresses cell-scale oscillations; increasing projection sharpness moves the design toward a more distinct fluid/solid interface. These are the actual archived selected density fields, not recreated simulations.
+
+![Selected density at beta 0](evidence/pilot/local/stage_01_beta_0/images/optimized_density.png)
+
+![Selected density at beta 2](evidence/pilot/local/stage_02_beta_2/images/optimized_density.png)
+
+![Selected density at beta 8](evidence/pilot/local/stage_03_beta_8/images/optimized_density.png)
+
+The raw 0.5 contour is the recommended geometry. Additional smoothing is not automatically an improvement: its mesh-screen failure is reported in the results section.
 
 ## 4. Verification
 The earlier solver benchmark output was recovered from the original archived `Project43_searchable.txt`; these are historical results, not a fresh rerun on the final executable. The benchmark definitions are present in the final source snapshot. Current fixed-pipe checks separately cover the final design's response derivatives and mesh sensitivity.
@@ -118,6 +145,15 @@ Final normalized objective 0.992919627; g=-9.97890521; side-flow slack 0.997891 
 
 The final row supplies the actual immersed objective and flow constraint comparison; the fitted-wall values are independent engineering validation rather than the optimizer objective.
 
+
+### Actual optimization histories
+
+![Final continuation stage pumping-power history](evidence/pilot/local/stage_03_beta_8/images/pumping_power_history.png)
+
+![Final continuation stage side-flow history](evidence/pilot/local/stage_03_beta_8/images/side_flow_fraction_history.png)
+
+These figures show the archived final-stage trajectory. The independent KKT audit, rather than the optimizer stop flag alone, establishes local first-order stationarity.
+
 ## 7. Nonlinearity: Stokes versus Navier–Stokes
 Removing convection from momentum and its Jacobian makes the fixed-density Stokes state linear; keep the same inlet, design mapping, common final side floor and objective including kinetic transport. Both endpoints pass KKT. Stokes satisfies the immersed constraint under its own evaluator, but fails under nonlinear evaluation (6.990948% vs 7.414738% floor). Navier–Stokes optimum gives 8.412628% under nonlinear immersed evaluation. Under identical nonlinear fitted-wall evaluation, Stokes delivers 1.948290% side flow and 9.105665 µW/m, while NS gives 8.464686% and 8.827238 µW/m. The NS optimum consumes 3.06% less power than Stokes and increases side share by 6.516397 pp. Paired descriptive uncertainties 0.013075 µW/m and 0.022710 pp; all three fitted geometries pass mesh screens. The Stokes geometry fails to preserve the original fitted side flow. The raw density mean absolute difference is 0.61866, symmetric-difference area 2.078946 mm². Stokes area 86.228145 mm², turn 88.247971° vs NS 85.506975 mm², 54.678079°. The observed total times 220.520 s Stokes/217.466 s NS reflect different evaluation counts (300/97) and environments, not intrinsic solver speed. The complete cross-evaluation is shown below.
 
@@ -196,7 +232,12 @@ All rows finest 0.0625 mm. Raw NS physical saving 0.448696 µW/m vs paired uncer
 
 ![Geometry finishing comparison](assets/three_panel.png)
 
-## 9. Bonus, 10. limitations and AI disclosure
+
+### Engineering interpretation
+
+The nonlinear design is preferred for this operating point: the fitted-wall tests show lower power and higher branch delivery than the original, and the Stokes alternative loses branch delivery under the same nonlinear evaluator. This is evidence for retaining inertia in the design model, not evidence of turbulent performance or a universal optimal junction. Since the fluid area and flow allocation also change, the power saving cannot be attributed to wall curvature alone.
+
+## 9. Bonus, 10. Limitations and AI disclosure
 N2 nonlinear Newton plus implicit differentiation is supported by the historical manufactured nonlinear benchmark and final discrete derivative tests. The source snapshot and archived benchmark output are linked above; the historical benchmark has not been rerun against the final executable, so bonus eligibility is for the instructor to decide. Density topology with anchored filter/projection is another candidate, but required comparable fixed-topology control remains missing unless independently documented. No global optimum, no validated 3D, no heat-transfer or turbulence claim. No rigorous numerical error bound. ChatGPT assisted with mathematical formulation, study planning, interpretation and report drafting; Codex assisted with implementation, numerical tests, job execution and plotting. Team-specific independent derivations/checks and a verified bug in the graded FEM path have not been supplied. In the separate exploratory SST branch, a missing wall-distance configuration caused initialization failure; this is not evidence of a graded laminar-solver bug. Team confirmation is required before submission.
 
 
@@ -213,4 +254,4 @@ The source snapshots, exact inputs, archived Slurm jobs and numerical outputs ar
 
 ## 12. Course compliance
 
-The report provides the formulation, historical and final verification evidence, sensitivities, measured cost, KKT and the nonlinear comparison. Remaining qualifications: one independent PDE inequality; no comparable fixed-topology bonus control; team confirmation of independent derivations and a graded-solver bug; full end-to-end numerical reproduction not rerun. Public deployment and Canvas submission require team action.
+The report provides the formulation, historical and final verification evidence, sensitivities, measured cost, KKT and the nonlinear comparison. Remaining qualifications: one independent PDE inequality; no comparable fixed-topology bonus control; team confirmation of independent derivations and a graded-solver bug; full end-to-end numerical reproduction not rerun. The repository is public; deployment and interactive browser acceptance should be checked separately from the numerical evidence. Canvas submission is a team action.
